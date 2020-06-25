@@ -11,17 +11,16 @@ import java.util.Set;
 
 /**
  * 
- * This class creates the customer object and stores it to a linkedlist. This
+ * This class creates the customer object and stores it to a linkedList. This
  * class contains method to search for customers, prints all customers, print
  * string, add/remove credit cards and remove customers. This class also stores
- * the credit card information to a Hashmap where the user ID is the key.
+ * the credit card information to a hash map where the user ID is the key.
  * 
  * 
  * @author Anthony Nguyen
  * @version 1.00.00
  * @since 2020.06.25
  */
-
 
 public class Customer {
 
