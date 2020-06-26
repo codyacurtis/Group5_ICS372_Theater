@@ -1,6 +1,6 @@
 /**
- * This class creates the credit card object and printing the objects data
- * 
+ * This class creates the credit card object using the credit card number and
+ * expiration date. This class also contains the toString method.
  * 
  * @author Anthony Nguyen
  * @since 2020.06.25
@@ -15,7 +15,7 @@ public class creditCard {
      * this constructor creates the credit Card object
      * 
      * @param creditCardNumber card information
-     * @param expiry           when the card expires
+     * @param expiry           card's expiration date
      */
     public creditCard(String creditCardNumber, String expiry) {
 	this.creditCardNumber = creditCardNumber;
