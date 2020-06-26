@@ -39,11 +39,13 @@ public class Customer {
 
     /**
      * 
+     * This constructor creates the customer object
+     * 
      * @param name       of customer
      * @param address    customer address
      * @param phone      customer phone number
      * @param creditCard customer credit card
-     * @param expiry     creditcard expieration date
+     * @param expiry     credit card expiration date
      * @param id         customer ID // testing purposes
      */
     @SuppressWarnings("unchecked")
@@ -55,29 +57,9 @@ public class Customer {
 	this.expiry = expiry;
 	id = generateID();
 	creditCard newCard = new creditCard(creditCard, expiry); // create a credit card object
-	// card.put(id, card2);
 	customerList.add(this);
-	// customer.put(id, (List<creditCard>) card2);
 	cardsList.add(newCard);
 	customerCards.put(id, cardsList);
-    }
-
-    /**
-     * getter to get customer ID
-     * 
-     * @return customer id
-     */
-    public String getId() {
-	return id;
-    }
-
-    /**
-     * Setter for name
-     * 
-     * @param newName member's new name
-     */
-    public void setName(String newName) {
-	name = newName;
     }
 
     /**
@@ -141,7 +123,7 @@ public class Customer {
 	    stringOutput += customerList.get(index).toString();
 	    System.out.println(stringOutput);
 	} else
-	    System.out.println("User Not found");
+	    System.out.println("Customer Not found");
 
     }
 
@@ -160,7 +142,7 @@ public class Customer {
 	    }
 	}
 
-	System.out.println("not found"); // prints error if customer isn't found
+	System.out.println("Customer Not Found"); // prints error if customer isn't found
     }
 
     /**
@@ -181,7 +163,7 @@ public class Customer {
 	}
 
 	else if (searchCustomer(id) == -99) {
-	    System.out.println("\nCustomer not found"); // prints error if customer doens't exist
+	    System.out.println("\nCustomer Not Found"); // prints error if customer doens't exist
 	}
 
 	else if (!checkDuplicate(creditCard)) { // checks if card is a duplicate
@@ -267,7 +249,7 @@ public class Customer {
     }
 
     /**
-     * This method generates a random 6 digits number to assign a new customer
+     * This method generates a random 6 digits number to assign to a new customer
      * 
      * @return random ID number
      */
