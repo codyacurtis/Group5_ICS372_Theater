@@ -7,7 +7,7 @@
  * @version 1.00.00
  */
 
-public class creditCard {
+public class CreditCard {
 
     private String creditCardNumber; // credit card information
     private String expiry; // date when card expires
