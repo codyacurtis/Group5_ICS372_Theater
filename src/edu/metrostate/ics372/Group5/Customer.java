@@ -55,7 +55,7 @@ public class Customer implements Serializable {
      * @return member' address
      */
 
-    public String getAddresss() {
+    public String getAddress() {
 	return address;
     }
 
