@@ -7,8 +7,10 @@ import java.util.List;
 
 public class CustomerList implements Serializable {
 
+    /**
+     * 
+     */
     private static final long serialVersionUID = 1L;
-    private CreditCardList creditCardList;
     private static CustomerList customerList;
     private List<Customer> customers = new LinkedList<Customer>();
 
@@ -17,7 +19,6 @@ public class CustomerList implements Serializable {
      */
     @SuppressWarnings("static-access")
     private CustomerList() {
-	creditCardList = CreditCardList.instance();
     };
 
     /**
@@ -50,14 +51,10 @@ public class CustomerList implements Serializable {
      * @param Id the target to remove
      * @return true if customer is removed
      */
-    public boolean removeCustomer(String Id) {
-	int index = search(Id);
-	if (index != -99) { // checks if customer is found
-	    customers.remove(index);
-	    creditCardList.deleteCustomerCards(Id);
-	    return true;
-	}
-	return false;
+    public boolean removeCustomer(Customer customer) {
+	customers.remove(customer);
+	return true;
+
     }
 
     /**
@@ -76,6 +73,24 @@ public class CustomerList implements Serializable {
 	    }
 	}
 	return -99; // customer not found
+    }
+
+    /**
+     * search for a customer in the collection and returns the index
+     * 
+     * @param Id customer's ID
+     * @return index of customer found
+     * 
+     */
+    public Customer searchCustomerIndex(String Id) {
+	int index = 0;
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
+	    Customer customer = (Customer) iterator.next();
+	    if (customer.getId().equals(Id)) {
+		return customer;
+	    }
+	}
+	return null; // customer not found
     }
 
     /*
@@ -114,25 +129,6 @@ public class CustomerList implements Serializable {
 	} catch (ClassNotFoundException cnfe) {
 	    cnfe.printStackTrace();
 	}
-    }
-
-    /**
-     * 
-     * returns all customers into string form
-     * 
-     * @return customers in string form
-     */
-    public String printAllCustomers() {
-	String output = "";
-	String Id;
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
-	    Customer Customer = (Customer) iterator.next();
-	    output += Customer.toString();
-	    Id = Customer.getId();
-	    output += creditCardList.getCustomerCreditCards(Id); // gets the credit card of customer
-	}
-
-	return output;
     }
 
 }
