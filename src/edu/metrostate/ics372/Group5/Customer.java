@@ -1,5 +1,8 @@
 package edu.metrostate.ics372.Group5;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 
  * This class creates the customer object and stores it to a linkedList. This
@@ -23,6 +26,7 @@ public class Customer implements Serializable {
     private String address; // address of customer
     private String phone; // customer's phone number
     private String id; // customer's id number
+    private List creditCardList = new LinkedList();
 
     /**
      * 
@@ -55,7 +59,7 @@ public class Customer implements Serializable {
      * @return member' address
      */
 
-    public String getAddress() {
+    public String getAddresss() {
 	return address;
     }
 
@@ -112,6 +116,25 @@ public class Customer implements Serializable {
      */
     public void setId(String newId) {
 	id = newId;
+    }
+
+    public boolean addCreditCard(CreditCard creditCard) {
+
+	// need to check for duplicates
+
+	if (creditCardList.add(creditCard)) {
+	    return true;
+	}
+	return false;
+    }
+
+    public boolean removeCreditCard(CreditCard creditCard) {
+
+	if (creditCardList.size() > 1) {
+	    creditCardList.remove(creditCard);
+	    return true;
+	}
+	return false;
     }
 
     /**
