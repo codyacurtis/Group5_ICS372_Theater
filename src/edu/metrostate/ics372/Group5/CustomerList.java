@@ -64,7 +64,7 @@ public class CustomerList implements Serializable {
      * @return index of customer found
      * 
      */
-    public Integer search(String Id) {
+    public Integer searchCustomerIndex(String Id) {
 	int index = 0;
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
 	    Customer Customer = (Customer) iterator.next();
@@ -82,7 +82,7 @@ public class CustomerList implements Serializable {
      * @return index of customer found
      * 
      */
-    public Customer searchCustomerIndex(String Id) {
+    public Customer searchCustomer(String Id) {
 	int index = 0;
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
 	    Customer customer = (Customer) iterator.next();
