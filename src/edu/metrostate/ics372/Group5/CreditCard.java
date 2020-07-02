@@ -1,5 +1,7 @@
 package edu.metrostate.ics372.Group5;
 
+import java.io.Serializable;
+
 /**
  * This class creates the credit card object using the credit card number and
  * expiration date. This class also contains the toString method.
