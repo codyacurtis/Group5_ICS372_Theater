@@ -129,11 +129,12 @@ public class CustomerList implements Serializable {
     }
 
     public String printAll() {
-	String output = "";
+	String output = "\n";
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    output += customer.toString();
-	    output += customer.printAllCreditCards();
+	    output += customer.printAllCreditCards + "\n"();
+	    
 	}
 
 	return output;
