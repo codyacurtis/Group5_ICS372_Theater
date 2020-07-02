@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 //Isiah, 2,3,4,10,11
-
 public class TheaterShow {
 	private int cId;
 	private String name;
@@ -56,8 +55,12 @@ public class TheaterShow {
 				System.out.print("Enter Show End Date (\"dd-MM-yyyy\"): ");
 				strDate = scanner.next();
 				Date end = myFormatObj.parse(strDate);
-
-				showArray.add(new TheaterShow(id, name, start, end));
+				if(canAddShow(start,end)) {
+					showArray.add(new TheaterShow(id, name, start, end));
+				}else {
+					System.out.println("Conflicts with other times");
+				}
+				
 			} catch (Exception e) {
 				System.out.println("Error parsing date");
 			}
@@ -65,6 +68,16 @@ public class TheaterShow {
 			System.out.println("Client does not exist");
 		}
 
+	}
+
+	private static boolean canAddShow(Date start2, Date end2) {
+		boolean output = true;
+		for(TheaterShow i : showArray) {
+			if(i.end.compareTo(start2) > 0 || i.start.compareTo(end2) < 0) {
+				output = false;
+			}
+		}
+		return output;
 	}
 
 	public static boolean canRemove(int id) {
