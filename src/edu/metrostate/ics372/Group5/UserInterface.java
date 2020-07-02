@@ -10,7 +10,9 @@ import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 public class UserInterface {
-	
+
+    // TODO Auto-generated method stub
+
     private static UserInterface userInterface;
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static Theater theater;
@@ -241,7 +243,7 @@ public class UserInterface {
 	result = Theater.addCustomer(name, address, phone, creditCardNumber, expiray);
 
 	if (result == null) {
-	    System.out.println("Customer not added");
+	    System.out.println("Customer already in system");
 	} else
 	    System.out.println("Added Customer");
 
@@ -249,25 +251,38 @@ public class UserInterface {
 
     public void removeCustomer() {
 	System.out.println("Remove Customer");
-	String clientID = getToken("Enter id");
-	// shows customer data
+	String customerID = getToken("Enter id");
+	Customer customer;
 
-	if (yesOrNo("Is this correct?")) {
-	    // remove user
-	    System.out.println("Customer Terminated");
+	do {
+	    customer = Theater.searchCustomer(customerID);
+	    System.out.println(customer.toString());
+	    if (yesOrNo("Is this correct?")) {
+		// remove user
+		System.out.println("Customer Terminated");
+		break;
+	    } else
+		customerID = getToken("Enter id again");
+
+	} while (true);
+
+	if (yesOrNo("Do you wish to delete Cusomter")) {
+	    Theater.removeCustomer(customerID);
+	    System.out.print("Customer deleted");
 	} else
-	    System.out.println("Customer not removed");
+	    System.out.print("Customer NOT deleted");
 
     }
 
     public void addCreditCard() {
-	Customer result;
-	String clientID = getToken("Enter id");
+	Customer customer;
+	String customerID;
 	// returns customer data and display
 
 	do {
-
-	    String clientID = getToken("Enter id");
+	    customerID = getToken("Enter id");
+	    customer = Theater.searchCustomer(customerID);
+	    System.out.println(customer.toString());
 
 	    // returns customer data and display
 	    if (yesOrNo("Is this correct")) {
@@ -277,17 +292,21 @@ public class UserInterface {
 
 	} while (true);
 
+	Boolean cardDuplicate;
 	String creditCardNumber = getToken("Enter credit card number");
 	String expiray = getToken("Enter credit card expiration");
-	// add card
+	CreditCard creditCard = new CreditCard(creditCardNumber, expiray);
+	cardDuplicate = Theater.isCardDuplicate(creditCardNumber);
 
-	if (result == null) {
+	if (!cardDuplicate) {
 	    System.out.println("adding card failed");
-
+	    System.out.println("already in system");
 	}
 
-	else
+	else {
+	    customer.addCreditCard(creditCard);
 	    System.out.println("added card");
+	}
 
     }
 
@@ -297,18 +316,23 @@ public class UserInterface {
 	// checks if card is in system
 	// shows customer information
 	// checks if only one card
-	CreditCard result;
-	if (result == null) {
-	    System.out.println("can't remove card");
+
+	Customer customer = Theater.customerCreditCard(creditCardNumber);
+	if (customer == null) {
+	    System.out.println("card doesn't exist in system");
 
 	}
 
-	else
-	    System.out.println("removed card");
+	else if (yesOrNo("Is this correct?")) {
+	    if (Theater.removeCreditCard(creditCardNumber, customer)) {
+		System.out.println("card removed");
+	    }
+	}
+
     }
 
     public void listCustomers() {
-
+	System.out.println(Theater.listCustomers());
     }
 
     public void addShow() {
