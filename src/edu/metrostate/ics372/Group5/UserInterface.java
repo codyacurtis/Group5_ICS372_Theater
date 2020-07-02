@@ -219,6 +219,10 @@ public class UserInterface {
 
     }
 
+    public void listClients() {
+
+    }
+
     public void addCustomer() {
 	Customer result;
 	CreditCard creditCard;
@@ -233,11 +237,15 @@ public class UserInterface {
 	    creditCardNumber = getToken("Enter credit card number");
 	    expiray = getToken("Enter credit card expiratoin date");
 
-	    if (yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone
+	    if (!yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone
 		    + "\nCredit Card: " + creditCardNumber + "\nExpiration date: " + expiray)) {
 		System.out.println("Try again");
-		break;
+
 	    }
+
+	    else
+		break;
+
 	} while (true);
 
 	result = Theater.addCustomer(name, address, phone, creditCardNumber, expiray);
@@ -258,19 +266,17 @@ public class UserInterface {
 	    customer = Theater.searchCustomer(customerID);
 	    System.out.println(customer.toString());
 	    if (yesOrNo("Is this correct?")) {
-		// remove user
-		System.out.println("Customer Terminated");
 		break;
 	    } else
 		customerID = getToken("Enter id again");
 
 	} while (true);
 
-	if (yesOrNo("Do you wish to delete Cusomter")) {
+	if (yesOrNo("Are you sure?")) {
 	    Theater.removeCustomer(customerID);
-	    System.out.print("Customer deleted");
+	    System.out.println("Customer deleted");
 	} else
-	    System.out.print("Customer NOT deleted");
+	    System.out.println("Customer NOT deleted");
 
     }
 
