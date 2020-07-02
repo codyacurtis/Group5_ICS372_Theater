@@ -204,7 +204,7 @@ public class UserInterface {
 	boolean result = false ;
 	if (yesOrNo("is data correct?")) {
 	    // remove client
-		result = ClientList.removeClient(Integer.parseInt(clientID));
+		result = ClientList.removeClientFromList(Integer.parseInt(clientID));
 	    // result == null if couldnt be removed
 	}
 
@@ -359,7 +359,7 @@ public class UserInterface {
     }
 
     public void listShows() {
-
+    	TheaterShowList.listShows();
     }
 
     /**

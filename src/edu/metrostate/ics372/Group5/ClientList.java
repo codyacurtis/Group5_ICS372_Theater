@@ -25,8 +25,8 @@ public class ClientList implements Serializable {
 	}
 
 	public static Client search(int clientId) {
-		if(clientArray.contains(clientId)) {
-		return clientArray.get(clientArray.indexOf(clientId));
+		if(clientArray.contains(new Client(clientId))) {
+		return clientArray.get(clientArray.indexOf(new Client(clientId)));
 		}else {
 			return null;
 		}
@@ -37,9 +37,9 @@ public class ClientList implements Serializable {
 		return true;
 	}
 	
-	public static boolean removeClient(int clientId) {
+	public static boolean removeClientFromList(int clientId) {
 		if(TheaterShowList.canRemove(clientId)) {
-			ClientList.removeClient(clientId);
+			clientArray.remove(new Client(clientId));
 			System.out.println("Client Removed");
 			return true;
 		}else {

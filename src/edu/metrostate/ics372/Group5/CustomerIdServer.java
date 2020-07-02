@@ -7,7 +7,11 @@ import java.util.Random;
 
 public class CustomerIdServer implements Serializable {
 
-    private String idCounter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String idCounter;
     private static CustomerIdServer server;
 
     /*

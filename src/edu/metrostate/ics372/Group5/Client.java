@@ -16,10 +16,14 @@ public class Client {
 		System.out.println("New Client: " + toString());
 	}
 
+	public Client(int input) {
+		id = input;
+	}
+
 	private int getId() {
 		return id;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

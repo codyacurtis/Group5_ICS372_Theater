@@ -25,7 +25,7 @@ public class TheaterShowList implements Serializable {
 	public static void addShow( int id,String name, Date start, Date end) {
 		// Asks the user for the name date and a valid
 		// Need to close on exit
-		if (ClientList.instance().search(id) != null) {
+		if (ClientList.search(id) != null) {
 			if(canAdd(start,end)) {
 				showArray.add(new TheaterShow(id,name,start,end));
 			}else {
