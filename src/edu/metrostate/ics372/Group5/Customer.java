@@ -1,5 +1,6 @@
 package edu.metrostate.ics372.Group5;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Customer implements Serializable {
     private String address; // address of customer
     private String phone; // customer's phone number
     private String id; // customer's id number
-    private List creditCardList = new LinkedList();
+    private List<CreditCard> creditCardList = new LinkedList();
 
     /**
      * 
@@ -118,23 +119,49 @@ public class Customer implements Serializable {
 	id = newId;
     }
 
+    public boolean checkCreditCardDuplicate(String checkCreditCard) {
+	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
+	    CreditCard creditCard = (CreditCard) iterator.next();
+	    if (creditCard.getCreditCardNumber().equals(checkCreditCard)) {
+		return true;
+	    }
+	}
+
+	return false;
+
+    }
+
     public boolean addCreditCard(CreditCard creditCard) {
-
-	// need to check for duplicates
-
 	if (creditCardList.add(creditCard)) {
 	    return true;
 	}
 	return false;
     }
 
-    public boolean removeCreditCard(CreditCard creditCard) {
+    public void removeCreditCard(CreditCard creditCard) {
+	creditCardList.remove(creditCard);
+    }
 
-	if (creditCardList.size() > 1) {
-	    creditCardList.remove(creditCard);
-	    return true;
+    public void removeCreditCardNumber(String removeCreditCard) {
+	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
+	    CreditCard creditCard = (CreditCard) iterator.next();
+	    if (creditCard.getCreditCardNumber().equals(removeCreditCard)) {
+		creditCardList.remove(creditCard);
+	    }
 	}
-	return false;
+    }
+
+    public String printAllCreditCards() {
+	String output = "";
+	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
+	    CreditCard creditCard = (CreditCard) iterator.next();
+	    output += creditCard.toString();
+	}
+	return output;
+    }
+
+    public int howManyCards() {
+	return creditCardList.size();
     }
 
     /**
