@@ -84,14 +84,60 @@ public class CustomerList implements Serializable {
      * 
      */
     public Customer searchCustomer(String Id) {
-	int index = 0;
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
+
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    if (customer.getId().equals(Id)) {
 		return customer;
 	    }
 	}
 	return null; // customer not found
+    }
+
+    public boolean checkNewCustomer(String name, String address, String phone) {
+	int index = 0;
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
+	    Customer customer = (Customer) iterator.next();
+	    if (customer.getName().equalsIgnoreCase(name) && customer.getAddresss().equalsIgnoreCase(address)
+		    && customer.getPhone().equals(phone)) {
+		return true;
+	    }
+	}
+	return false; // customer not found
+    }
+
+    public boolean searchCreditCard(String creditCard) {
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
+	    Customer customer = (Customer) iterator.next();
+	    if (customer.checkCreditCardDuplicate(creditCard)) {
+		return false;
+	    }
+
+	}
+	return true;
+    }
+
+    public Customer customerCreditCard(String creditCard) {
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
+	    Customer customer = (Customer) iterator.next();
+	    if (customer.checkCreditCardDuplicate(creditCard)) {
+		return customer;
+	    }
+
+	}
+	return null;
+    }
+
+    public String printAll() {
+	String output = "";
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
+	    Customer customer = (Customer) iterator.next();
+	    output += customer.toString();
+	    output += customer.printAllCreditCards();
+	}
+
+	return output;
+
     }
 
     /*
