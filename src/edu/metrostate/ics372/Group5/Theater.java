@@ -1,7 +1,7 @@
 package edu.metrostate.ics372.Group5;
 
 /**
- * @author Anthony Nguyen
+ * @author Anthony
  *
  */
 public class Theater {
