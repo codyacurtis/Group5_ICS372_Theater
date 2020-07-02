@@ -178,4 +178,11 @@ public class Theater {
 	}
     }
 
+	public Client addClient(String name, String address, String phone) {
+		Client insert = new Client(name,address,phone);
+		ClientList.insertClient(insert);
+		return insert;
+	}
+
+
 }
