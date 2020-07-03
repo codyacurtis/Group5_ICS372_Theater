@@ -201,10 +201,10 @@ public class UserInterface {
     public void removeClient() {
 	String clientID = getToken("Enter id");
 	// searches for client and returns the object
-	boolean result = false ;
+	boolean result = false;
 	if (yesOrNo("is data correct?")) {
 	    // remove client
-		result = ClientList.removeClientFromList(Integer.parseInt(clientID));
+	    result = ClientList.removeClientFromList(Integer.parseInt(clientID));
 	    // result == null if couldnt be removed
 	}
 
@@ -217,9 +217,8 @@ public class UserInterface {
     }
 
     public void listAllClients() {
-    	ClientList.listClients();
+	ClientList.listClients();
     }
-
 
     public void addCustomer() {
 	Customer result;
@@ -233,7 +232,7 @@ public class UserInterface {
 	    address = getToken("Enter customer address");
 	    phone = getToken("Enter customer phone");
 	    creditCardNumber = getToken("Enter credit card number");
-	    expiray = getToken("Enter credit card expiratoin date");
+	    expiray = getToken("Enter credit card expiration date");
 
 	    if (!yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone
 		    + "\nCredit Card: " + creditCardNumber + "\nExpiration date: " + expiray)) {
@@ -341,14 +340,13 @@ public class UserInterface {
 
     public void addShow() {
 
-	
 	String name = getToken("Enter client name");
 	String show = getToken("Enter show");
 	String clientID = getToken("Enter client ID");
 	Calendar startDate = getDate("Enter Start date");
 	Calendar endDate = getDate("Enter End date");
-	
-	//Calendar != Date
+
+	// Calendar != Date
 	boolean results = TheaterShowList.addShow(clientID, name, startDate, endDate);
 	if (results != results) {
 	    System.out.println("Client exists");
@@ -359,7 +357,7 @@ public class UserInterface {
     }
 
     public void listShows() {
-    	TheaterShowList.listShows();
+	TheaterShowList.listShows();
     }
 
     /**
