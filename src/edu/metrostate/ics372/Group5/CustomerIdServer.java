@@ -2,11 +2,16 @@ package edu.metrostate.ics372.Group5;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Random;
 
 public class CustomerIdServer implements Serializable {
 
-    private String idCounter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String idCounter;
     private static CustomerIdServer server;
 
     /*

@@ -1,5 +1,6 @@
 package edu.metrostate.ics372.Group5;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
