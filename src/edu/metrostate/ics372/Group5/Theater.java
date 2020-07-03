@@ -90,6 +90,9 @@ public class Theater {
 
     public static boolean removeCreditCard(String creditCard, Customer customer) {
 	int cards = 0;
+
+	cards = customer.howManyCards();
+
 	if (cards > 1) {
 	    customer.removeCreditCardNumber(creditCard);
 	    return true;
@@ -178,11 +181,10 @@ public class Theater {
 	}
     }
 
-	public Client addClient(String name, String address, String phone) {
-		Client insert = new Client(name,address,phone);
-		ClientList.insertClient(insert);
-		return insert;
-	}
-
+    public Client addClient(String name, String address, String phone) {
+	Client insert = new Client(name, address, phone);
+	ClientList.insertClient(insert);
+	return insert;
+    }
 
 }
