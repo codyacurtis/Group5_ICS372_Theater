@@ -33,9 +33,19 @@ public class Theater implements Serializable {
 	}
     }
 
-    public static Customer
-
-	    addCustomer(String name, String address, String phone, String creditCardNumber, String expiray) {
+    /**
+     * This method will add a customer to the CustomerList collection and checks if
+     * the customer exists in the system
+     * 
+     * @param name             customer's name
+     * @param address          customers's address
+     * @param phone            customer's phone
+     * @param creditCardNumber customers' credit card number
+     * @param expiray          credit card number expiration date
+     * @return customer if the customer was added successfully
+     */
+    public static Customer addCustomer(String name, String address, String phone, String creditCardNumber,
+	    String expiray) {
 	Customer customer = new Customer(name, address, phone);
 	CreditCard creditCard = new CreditCard(creditCardNumber, expiray);
 
@@ -43,13 +53,17 @@ public class Theater implements Serializable {
 	    CustomerList.insertCustomer(customer);
 	    customer.addCreditCard(creditCard);
 	    return customer;
-
 	}
-
 	return null;
 
     }
 
+    /**
+     * This method removes the customer from the customer list and also their credit
+     * cards
+     * 
+     * @param ID Customer's ID number
+     */
     @SuppressWarnings("static-access")
     public static void removeCustomer(String ID) {
 	Customer customer;
@@ -57,52 +71,52 @@ public class Theater implements Serializable {
 	CustomerList.removeCustomer(customer);
     }
 
+    /**
+     * This finds customer with an ID
+     * 
+     * @return customer object
+     */
     public static Customer searchCustomer(String ID) {
 	Customer customer;
 	customer = CustomerList.searchCustomer(ID);
 	return customer;
-
     }
 
+    /**
+     * Finds a customer with only using a credit card number
+     * 
+     * @param creditCard the card to find in the system
+     * @return customer object
+     */
     public static Customer customerCreditCard(String creditCard) {
 	Customer customer = CustomerList.customerCreditCard(creditCard);
 	return customer;
     }
 
-    public static boolean isCardDuplicate(String creditCard) {
-	if (!CustomerList.searchCreditCard(creditCard)) {
-	    return false;
-	}
-	return true;
-    }
-
-    public static boolean onlyCreditCard(String creditCard) {
-	Customer customer;
-	int cards = 0;
-	customer = CustomerList.customerCreditCard(creditCard);
-	cards = customer.howManyCards();
-	if (cards > 1) {
-	    customer.removeCreditCardNumber(creditCard);
-	    return true;
-	}
-
-	return false;
-    }
-
-    public static boolean removeCreditCard(String creditCard, Customer customer) {
-	int cards = 0;
-
-	cards = customer.howManyCards();
+    /**
+     * This removes a credit card from a user, but it will check if customer have
+     * more than 1 card
+     * 
+     * @param creditCard the card to be removed
+     * @param customer   where the card will be removed from
+     * @return true if card was removed
+     */
+    public static boolean removeCreditCard(String creditCard, Customer customer) { // used
+	int cards = customer.howManyCards();
 
 	if (cards > 1) {
 	    customer.removeCreditCardNumber(creditCard);
 	    return true;
 	}
-
 	System.out.println("Customer only has one card");
 	return false;
     }
 
+    /**
+     * Prints all customers and credit cards
+     * 
+     * @return string data of customers and cards
+     */
     public static String listCustomers() {
 	String output = "";
 	return CustomerList.printAll();
@@ -110,7 +124,7 @@ public class Theater implements Serializable {
     }
 
     /**
-     * Retrieves a deserialized version of the library from disk
+     * Retrieves a deserialized version of the Theater from disk
      * 
      * @return a Library object
      */
@@ -132,7 +146,7 @@ public class Theater implements Serializable {
     }
 
     /**
-     * Serializes the Library object
+     * Serializes the Theater object
      * 
      * @return true iff the data could be saved
      */
