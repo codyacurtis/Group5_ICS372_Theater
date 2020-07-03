@@ -120,6 +120,7 @@ public class Theater implements Serializable {
 	    ObjectInputStream input = new ObjectInputStream(file);
 	    input.readObject();
 	    CustomerIdServer.retrieve(input);
+	    CustomerList.readTest(input); // read customerList object to file work around
 	    return theater;
 	} catch (IOException ioe) {
 	    ioe.printStackTrace();
@@ -141,6 +142,7 @@ public class Theater implements Serializable {
 	    ObjectOutputStream output = new ObjectOutputStream(file);
 	    output.writeObject(theater);
 	    output.writeObject(CustomerIdServer.instance());
+	    CustomerList.writeTest(output); // write customerList object to file work around
 	    return true;
 	} catch (IOException ioe) {
 	    ioe.printStackTrace();
