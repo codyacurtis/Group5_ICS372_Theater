@@ -10,8 +10,9 @@ import java.io.ObjectOutputStream;
  * @author Anthony
  *
  */
-public class Theater {
+public class Theater implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
     private static Theater theater;
 
@@ -20,7 +21,6 @@ public class Theater {
      * objects
      */
     private Theater() {
-	// catalog = Catalog.instance();
 	customerList = CustomerList.instance();
     }
 
@@ -39,8 +39,8 @@ public class Theater {
 	Customer customer = new Customer(name, address, phone);
 	CreditCard creditCard = new CreditCard(creditCardNumber, expiray);
 
-	if (!customerList.checkNewCustomer(name, address, phone)) {
-	    customerList.insertCustomer(customer);
+	if (!CustomerList.checkNewCustomer(name, address, phone)) {
+	    CustomerList.insertCustomer(customer);
 	    customer.addCreditCard(creditCard);
 	    return customer;
 
@@ -50,26 +50,27 @@ public class Theater {
 
     }
 
+    @SuppressWarnings("static-access")
     public static void removeCustomer(String ID) {
 	Customer customer;
-	customer = customerList.searchCustomer(ID);
-	customerList.removeCustomer(customer);
+	customer = CustomerList.searchCustomer(ID);
+	CustomerList.removeCustomer(customer);
     }
 
     public static Customer searchCustomer(String ID) {
 	Customer customer;
-	customer = customerList.searchCustomer(ID);
+	customer = CustomerList.searchCustomer(ID);
 	return customer;
 
     }
 
     public static Customer customerCreditCard(String creditCard) {
-	Customer customer = customerList.customerCreditCard(creditCard);
+	Customer customer = CustomerList.customerCreditCard(creditCard);
 	return customer;
     }
 
     public static boolean isCardDuplicate(String creditCard) {
-	if (!customerList.searchCreditCard(creditCard)) {
+	if (!CustomerList.searchCreditCard(creditCard)) {
 	    return false;
 	}
 	return true;
@@ -78,7 +79,7 @@ public class Theater {
     public static boolean onlyCreditCard(String creditCard) {
 	Customer customer;
 	int cards = 0;
-	customer = customerList.customerCreditCard(creditCard);
+	customer = CustomerList.customerCreditCard(creditCard);
 	cards = customer.howManyCards();
 	if (cards > 1) {
 	    customer.removeCreditCardNumber(creditCard);
@@ -104,7 +105,7 @@ public class Theater {
 
     public static String listCustomers() {
 	String output = "";
-	return customerList.printAll();
+	return CustomerList.printAll();
 
     }
 
