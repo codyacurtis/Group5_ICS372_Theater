@@ -33,7 +33,7 @@ public class UserInterface {
 
     /**
      * Made private for singleton pattern. Conditionally looks for any saved data.
-     * Otherwise, it gets a singleton Library object.
+     * Otherwise, it gets a singleton Theater object.
      */
     private UserInterface() {
 	if (yesOrNo("Look for saved data and  use it?")) {
@@ -220,14 +220,17 @@ public class UserInterface {
 	ClientList.listClients();
     }
 
+    /**
+     * This method takes a name,address,phone number and credit card information and
+     * checks if the user and credit card already exists in the system
+     */
     public void addCustomer() {
-	Customer result;
-	CreditCard creditCard;
+	Customer result = null;
+	Customer resultCreditCard;
 	String name, address, phone, creditCardNumber, expiray;
-
 	System.out.println("Adding Customer");
 
-	do {
+	do { // loops until the user is happy with the information
 	    name = getToken("Enter customer name");
 	    address = getToken("Enter customer address");
 	    phone = getToken("Enter customer phone");
@@ -237,103 +240,123 @@ public class UserInterface {
 	    if (!yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone
 		    + "\nCredit Card: " + creditCardNumber + "\nExpiration date: " + expiray)) {
 		System.out.println("Try again");
-
-	    }
-
-	    else
+	    } else
 		break;
 
 	} while (true);
+	resultCreditCard = Theater.customerCreditCard(creditCardNumber); // checks if a customer already have the same
+									 // card
 
-	result = Theater.addCustomer(name, address, phone, creditCardNumber, expiray);
+	if (resultCreditCard == null) { // card isn't found in the system
+	    result = Theater.addCustomer(name, address, phone, creditCardNumber, expiray);
+	}
 
 	if (result == null) {
 	    System.out.println("Customer already in system");
+	    System.out.println("Customer not added");
+	} else if (resultCreditCard != null) {
+	    System.out.println("Credit card already in system");
+	    System.out.println("Customer not added");
 	} else
 	    System.out.println("Added Customer");
-
     }
 
+    /**
+     * This method takes a customer's ID and removes that customer and their credit
+     * card from the system
+     * 
+     */
     public void removeCustomer() {
-	System.out.println("Remove Customer");
-	String customerID = getToken("Enter id");
+	String customerID;
 	Customer customer;
+	System.out.println("Remove Customer");
+	do { // displays the customer data and see if it is the correct customer
+	    customerID = getToken("Enter Cusomter's ID Number");
+	    customer = Theater.searchCustomer(customerID); // searches for customer
 
-	do {
-	    customer = Theater.searchCustomer(customerID);
+	    if (customer == null) {
+		System.out.println("Customer not found");
+		continue;
+	    }
+
 	    System.out.println(customer.toString());
 	    if (yesOrNo("Is this correct?")) {
 		break;
 	    } else
-		customerID = getToken("Enter id again");
+		customerID = getToken("Try again");
 
 	} while (true);
 
 	if (yesOrNo("Are you sure?")) {
-	    Theater.removeCustomer(customerID);
+	    Theater.removeCustomer(customerID); // delete customer
 	    System.out.println("Customer deleted");
 	} else
 	    System.out.println("Customer NOT deleted");
 
     }
 
+    /**
+     * This method adds a credit card to a customer with a given ID and credit Card
+     * information This method will check if the customer exists and if the card is
+     * already in the system before adding it to the customer
+     * 
+     */
     public void addCreditCard() {
-	Customer customer;
+	Customer customer, result;
 	String customerID;
-	// returns customer data and display
 
-	do {
+	do { // checks if the information is correct
 	    customerID = getToken("Enter id");
-	    customer = Theater.searchCustomer(customerID);
+	    customer = Theater.searchCustomer(customerID); // search for customer with the same card
+	    if (customer == null) { // customer isn't found
+		System.out.println("Customer not found");
+		continue;
+	    }
 	    System.out.println(customer.toString());
 
-	    // returns customer data and display
 	    if (yesOrNo("Is this correct")) {
 		break;
 	    } else
 		System.out.println("Try again");
 
 	} while (true);
-
-	Boolean cardDuplicate;
 	String creditCardNumber = getToken("Enter credit card number");
 	String expiray = getToken("Enter credit card expiration");
 	CreditCard creditCard = new CreditCard(creditCardNumber, expiray);
-	cardDuplicate = Theater.isCardDuplicate(creditCardNumber);
+	result = Theater.customerCreditCard(creditCardNumber); // search for customer with the same card
 
-	if (!cardDuplicate) {
-	    System.out.println("adding card failed");
-	    System.out.println("already in system");
-	}
-
-	else {
+	if (result != null) {
+	    System.out.println("Adding card failed");
+	    System.out.println("Already in system");
+	} else {
 	    customer.addCreditCard(creditCard);
 	    System.out.println("added card");
 	}
-
     }
 
+    /**
+     * This method removes a credit card from the system with a given card number it
+     * will also check if the customer has more than one credit card in the system
+     * before deleting and will refuse to delete if customer only has one credit
+     * card.
+     */
     public void removeCreditCard() {
 	String creditCardNumber = getToken("Enter credit card number");
-
-	// checks if card is in system
-	// shows customer information
-	// checks if only one card
-
-	Customer customer = Theater.customerCreditCard(creditCardNumber);
+	Customer customer = Theater.customerCreditCard(creditCardNumber); // searches for customer with the card in the
+									  // system
 	if (customer == null) {
 	    System.out.println("card doesn't exist in system");
-
-	}
-
-	else if (yesOrNo("Is this correct?")) {
+	    // checks if it is the correct customer
+	} else if (yesOrNo(customer.toString() + "\nIs this correct?")) {
 	    if (Theater.removeCreditCard(creditCardNumber, customer)) {
 		System.out.println("card removed");
 	    }
 	}
-
     }
 
+    /**
+     * This method shows all customers that was saved and that have been created
+     */
     public void listCustomers() {
 	System.out.println(Theater.listCustomers());
     }
