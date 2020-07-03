@@ -58,32 +58,13 @@ public class CustomerList implements Serializable {
     }
 
     /**
-     * search for a customer in the collection and returns the index
+     * search for a customer in the collection and returns the customer object
      * 
      * @param Id customer's ID
-     * @return index of customer found
-     * 
-     */
-    public Integer searchCustomerIndex(String Id) {
-	int index = 0;
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
-	    Customer Customer = (Customer) iterator.next();
-	    if (Customer.getId().equals(Id)) {
-		return index;
-	    }
-	}
-	return -99; // customer not found
-    }
-
-    /**
-     * search for a customer in the collection and returns the index
-     * 
-     * @param Id customer's ID
-     * @return index of customer found
+     * @return customer object
      * 
      */
     public static Customer searchCustomer(String Id) {
-
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    if (customer.getId().equals(Id)) {
@@ -93,9 +74,16 @@ public class CustomerList implements Serializable {
 	return null; // customer not found
     }
 
+    /**
+     * Checks if a customer already exsists in the system
+     * 
+     * @param name    Customer's name
+     * @param address customer's address
+     * @param phone   customer's phone
+     * @return true if customer exists
+     */
     public static boolean checkNewCustomer(String name, String address, String phone) {
-	int index = 0;
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
+	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    if (customer.getName().equalsIgnoreCase(name) && customer.getAddresss().equalsIgnoreCase(address)
 		    && customer.getPhone().equals(phone)) {
@@ -105,16 +93,12 @@ public class CustomerList implements Serializable {
 	return false; // customer not found
     }
 
-    public static boolean searchCreditCard(String creditCard) {
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
-	    Customer customer = (Customer) iterator.next();
-	    if (customer.checkCreditCardDuplicate(creditCard)) {
-		return false;
-	    }
-
-	}
-	return true;
-    }
+    /**
+     * This method returns the customer with the matching credit card number
+     * 
+     * @param creditCard card to find in system
+     * @return customer object
+     */
 
     public static Customer customerCreditCard(String creditCard) {
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
@@ -127,6 +111,11 @@ public class CustomerList implements Serializable {
 	return null;
     }
 
+    /**
+     * prints all customer and credit card in system
+     * 
+     * @return string data of customers and credit cards
+     */
     public static String printAll() {
 	String output = "\n";
 
