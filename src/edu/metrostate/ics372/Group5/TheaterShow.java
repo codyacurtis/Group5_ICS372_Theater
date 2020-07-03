@@ -1,12 +1,7 @@
 package edu.metrostate.ics372.Group5;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.Calendar;
 
 //Isiah, 2,3,4,10,11
 public class TheaterShow implements Serializable {
@@ -14,20 +9,20 @@ public class TheaterShow implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int cId;
+	private String cId;
 	private String name;
-	private Date start;
-	private Date end;
-	private static SimpleDateFormat myFormatObj = new SimpleDateFormat("dd-MM-yyyy");
+	private Calendar start;
+	private Calendar end;
+	//private static SimpleDateFormat myFormatObj = new SimpleDateFormat("dd-MM-yyyy");
 	
-	public TheaterShow(int cId, String name, Date start, Date end) {
+	public TheaterShow(String cId, String name, Calendar start, Calendar end) {
 		this.cId = cId;
 		this.name = name;
 		this.start = start;
 		this.end = end;
 	}
 
-	public int getcId() {
+	public String getcId() {
 		return cId;
 	}
 
@@ -35,15 +30,15 @@ public class TheaterShow implements Serializable {
 		return name;
 	}
 
-	public Date getStart() {
+	public Calendar getStart() {
 		return start;
 	}
 
-	public Date getEnd() {
+	public Calendar getEnd() {
 		return end;
 	}
 
-	public void setcId(int cId) {
+	public void setcId(String cId) {
 		this.cId = cId;
 	}
 
@@ -51,11 +46,11 @@ public class TheaterShow implements Serializable {
 		this.name = name;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(Calendar start) {
 		this.start = start;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(Calendar end) {
 		this.end = end;
 	}
 	

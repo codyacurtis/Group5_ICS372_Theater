@@ -3,6 +3,8 @@ package edu.metrostate.ics372.Group5;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class ClientIdServer implements Serializable {
 
@@ -12,9 +14,9 @@ public class ClientIdServer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idCounter;
 	private static ClientIdServer server;
+	private static ArrayList<String> ids = new ArrayList<String>();
 
 	private ClientIdServer() {
-		idCounter = 1;
 	}
 
 	public static ClientIdServer instance() {
@@ -25,9 +27,21 @@ public class ClientIdServer implements Serializable {
 		}
 	}
 
-	public int getId() {
-		return idCounter++;
+	public String getId() {
+		Random rand = new Random();
+		int randInt = (int) ((rand.nextDouble()) * 100000);
+		String output = Integer.toString(randInt);
+		while (ids.contains(output)) {
+			randInt = (int) ((rand.nextDouble()) * 100000);
+			output = Integer.toString(randInt);
+		}
+		return output;
 	}
+
+	public static void removeId(String id) {
+		ids.remove(id);
+	}
+	
 
 	@Override
 	public String toString() {
@@ -65,4 +79,9 @@ public class ClientIdServer implements Serializable {
 			ioe.printStackTrace();
 		}
 	}
+
+	public static boolean contains(String clientID) {
+		return ids.contains(clientID);
+	}
+
 }

@@ -2,8 +2,7 @@ package edu.metrostate.ics372.Group5;
 
 //Isiah, 2,3,4,10,11
 public class Client {
-	private String name, adress, phoneNumber;
-	private int id;
+	private String name, adress, phoneNumber, id;
 	private double balance;
 
 	public Client(String name, String adress, String phoneNumber) {
@@ -16,11 +15,11 @@ public class Client {
 		System.out.println("New Client: " + toString());
 	}
 
-	public Client(int input) {
+	public Client(String input) {
 		id = input;
 	}
 
-	private int getId() {
+	private String getId() {
 		return id;
 	}
 	
@@ -40,7 +39,7 @@ public class Client {
 
 	@Override
 	public int hashCode() {
-		return this.id;
+		return Integer.parseInt(this.id);
 	}
 
 	@Override
