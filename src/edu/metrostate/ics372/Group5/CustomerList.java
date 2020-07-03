@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class CustomerList implements Serializable {
 
     /**
-     * fdx
+     * 
      */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
@@ -177,6 +177,31 @@ public class CustomerList implements Serializable {
 	    ioe.printStackTrace();
 	} catch (ClassNotFoundException cnfe) {
 	    cnfe.printStackTrace();
+	}
+    }
+
+    // write object to file work around
+    public static void writeTest(java.io.ObjectOutputStream output) {
+	try {
+	    output.writeObject(customers);
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+    }
+
+    // read object from file work around
+    @SuppressWarnings("unchecked")
+    public static void readTest(java.io.ObjectInputStream input) {
+	try {
+	    customers = (LinkedList<Customer>) input.readObject();
+	} catch (ClassNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
     }
 
