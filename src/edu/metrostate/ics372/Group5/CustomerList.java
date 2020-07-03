@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class CustomerList implements Serializable {
 
@@ -13,7 +12,7 @@ public class CustomerList implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
-    private List<Customer> customers = new LinkedList<Customer>();
+    private static LinkedList<Customer> customers = new LinkedList<Customer>();
 
     /**
      * Private for the singleton pattern Creates the creditCard collection
@@ -41,7 +40,7 @@ public class CustomerList implements Serializable {
      * @param customer the customer to be inserted
      * @return true if the member could be inserted. Currently always true
      */
-    public boolean insertCustomer(Customer customer) {
+    public static boolean insertCustomer(Customer customer) {
 	customers.add(customer);
 	return true;
     }
@@ -52,7 +51,7 @@ public class CustomerList implements Serializable {
      * @param Id the target to remove
      * @return true if customer is removed
      */
-    public boolean removeCustomer(Customer customer) {
+    public static boolean removeCustomer(Customer customer) {
 	customers.remove(customer);
 	return true;
 
@@ -83,7 +82,7 @@ public class CustomerList implements Serializable {
      * @return index of customer found
      * 
      */
-    public Customer searchCustomer(String Id) {
+    public static Customer searchCustomer(String Id) {
 
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
@@ -94,7 +93,7 @@ public class CustomerList implements Serializable {
 	return null; // customer not found
     }
 
-    public boolean checkNewCustomer(String name, String address, String phone) {
+    public static boolean checkNewCustomer(String name, String address, String phone) {
 	int index = 0;
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext(); index++) {
 	    Customer customer = (Customer) iterator.next();
@@ -106,7 +105,7 @@ public class CustomerList implements Serializable {
 	return false; // customer not found
     }
 
-    public boolean searchCreditCard(String creditCard) {
+    public static boolean searchCreditCard(String creditCard) {
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    if (customer.checkCreditCardDuplicate(creditCard)) {
@@ -117,7 +116,7 @@ public class CustomerList implements Serializable {
 	return true;
     }
 
-    public Customer customerCreditCard(String creditCard) {
+    public static Customer customerCreditCard(String creditCard) {
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    if (customer.checkCreditCardDuplicate(creditCard)) {
@@ -128,17 +127,19 @@ public class CustomerList implements Serializable {
 	return null;
     }
 
-    public String printAll() {
+    public static String printAll() {
 	String output = "\n";
+
+	if (customers.isEmpty())
+	    return output = "List Empty";
+
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
 	    output += customer.toString();
-	    output += customer.printAllCreditCards + "\n"();
-	    
+	    output += customer.printAllCreditCards() + "\n";
 	}
 
 	return output;
-
     }
 
     /*
