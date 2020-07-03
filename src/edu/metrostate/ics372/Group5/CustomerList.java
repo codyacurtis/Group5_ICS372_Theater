@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class CustomerList implements Serializable {
 
     /**
-     * 
+     * fdx
      */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
