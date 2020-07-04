@@ -11,15 +11,19 @@ import java.util.Scanner;
 
 //Isiah, 2,3,4,10,11
 public class TheaterShow implements Serializable {
+	@Override
+	public String toString() {
+		return "TheaterShow [name=" + name + ", cId=" + cId + ", start=" + start + ", end=" + end + "]";
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name,cId;
+	private String name, cId;
 	private Calendar start;
 	private Calendar end;
-	private static SimpleDateFormat myFormatObj = new SimpleDateFormat("dd-MM-yyyy");
-	
+
 	public TheaterShow(String id, String name, Calendar startDate, Calendar endDate) {
 		this.cId = id;
 		this.name = name;
@@ -58,7 +62,5 @@ public class TheaterShow implements Serializable {
 	public void setEnd(Calendar end) {
 		this.end = end;
 	}
-	
-
 
 }
