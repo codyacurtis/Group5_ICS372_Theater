@@ -12,12 +12,11 @@ public class ClientIdServer implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int idCounter;
 	private static ClientIdServer server;
 	private static ArrayList<String> idList;
 
 	private ClientIdServer() {
-		idCounter = 1;
+		idList = new ArrayList<String>();
 	}
 
 	public static ClientIdServer instance() {
@@ -35,12 +34,13 @@ public class ClientIdServer implements Serializable {
 		for (int i = 1; i < digits.length; i++) {
 			digits[i] = (char) (rnd.nextInt(10) + '0');
 		}
+		idList.add(new String(digits));
 		return new String(digits);
 	}
 
 	@Override
 	public String toString() {
-		return ("IdServer" + idCounter);
+		return ("IdServer: " + toString() );
 	}
 
 	public static void retrieve(ObjectInputStream input) {

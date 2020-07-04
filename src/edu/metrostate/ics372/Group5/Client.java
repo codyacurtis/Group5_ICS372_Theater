@@ -1,7 +1,13 @@
 package edu.metrostate.ics372.Group5;
 
+import java.io.Serializable;
+
 //Isiah, 2,3,4,10,11
-public class Client {
+public class Client implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name, adress, phoneNumber;
 	private String id;
 	private double balance;
@@ -20,7 +26,7 @@ public class Client {
 		id = clientId;
 	}
 
-	private String getId() {
+	public String getId() {
 		return id;
 	}
 	

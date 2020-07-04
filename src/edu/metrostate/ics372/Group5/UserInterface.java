@@ -196,6 +196,7 @@ public class UserInterface {
 			System.out.println("Could not add client");
 		}
 		System.out.println("Added client");
+		System.out.println("CLient Id: " + result.getId());
 	}
 
 	public void removeClient() {
@@ -362,7 +363,7 @@ public class UserInterface {
 	}
 
 	public void addShow() {
-
+		try {
 		String name = getToken("Enter client name");
 		String show = getToken("Enter show");
 		String clientID = getToken("Enter client ID");
@@ -376,6 +377,9 @@ public class UserInterface {
 		} else
 			System.out.println("Show added");
 		// add show
+		}catch( NullPointerException e) {
+			System.out.println("Client not found");
+		}
 
 	}
 
