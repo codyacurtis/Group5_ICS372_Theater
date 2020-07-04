@@ -179,24 +179,29 @@ public class UserInterface {
 		String name, address, phone;
 
 		System.out.println("Adding Client");
+		try {
+			do {
+				name = getToken("Enter client name");
+				address = getToken("Enter client address");
+				phone = getToken("Enter client phone");
 
-		do {
-			name = getToken("Enter client name");
-			address = getToken("Enter client address");
-			phone = getToken("Enter client phone");
+				if (yesOrNo(
+						"Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone)) {
+					break;
+				}
+			} while (true);
+			Client result;
+			result = theater.addClient(name, address, phone);
 
-			if (yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone)) {
-				break;
+			if (result == null) {
+				System.out.println("Could not add client");
+				return;
 			}
-		} while (true);
-		Client result;
-		result = theater.addClient(name, address, phone);
-
-		if (result == null) {
+			System.out.println("Added client");
+			System.out.println("CLient Id: " + result.getId());
+		} catch (NullPointerException e) {
 			System.out.println("Could not add client");
 		}
-		System.out.println("Added client");
-		System.out.println("CLient Id: " + result.getId());
 	}
 
 	public void removeClient() {
@@ -364,23 +369,25 @@ public class UserInterface {
 
 	public void addShow() {
 		try {
-		String name = getToken("Enter client name");
-		String show = getToken("Enter show");
-		String clientID = getToken("Enter client ID");
-		Calendar startDate = getDate("Enter Start date");
-		Calendar endDate = getDate("Enter End date");
+			String show = getToken("Enter show");
+			String clientID = getToken("Enter client ID");
+			Calendar startDate = getDate("Enter Start date");
+			Calendar endDate = getDate("Enter End date");
 
-		// Calendar != Date
-		boolean results = TheaterShowList.addShow(clientID, show, startDate, endDate);
-		if (!results) {
-			System.out.println("Show not added");
-		} else
-			System.out.println("Show added");
-		// add show
-		}catch( NullPointerException e) {
+			if (startDate.compareTo(endDate) < 0) {
+
+				boolean results = TheaterShowList.addShow(clientID, show, startDate, endDate);
+				if (!results) {
+					System.out.println("Show not added");
+				} else
+					System.out.println("Show added");
+				// add show
+			} else {
+				System.out.println("Show not added");
+			}
+		} catch (NullPointerException e) {
 			System.out.println("Client not found");
 		}
-
 	}
 
 	public void listShows() {
@@ -392,6 +399,7 @@ public class UserInterface {
 	 * Library method for saving.
 	 * 
 	 */
+	@SuppressWarnings("static-access")
 	private void save() {
 		if (theater.save()) {
 			System.out.println(" The Theater has been successfully saved in the file TheaterData \n");

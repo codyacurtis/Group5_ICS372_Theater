@@ -59,11 +59,15 @@ public class TheaterShowList implements Serializable {
 		// Tests to see that the client can be removed and does not have any shows that
 		// are open at this time.
 		boolean output = true;
+		try {
 		Calendar currentDate = Calendar.getInstance();
 		for (TheaterShow i : showArray) {
 			if (ClientList.contains(i.getcId()) && i.getEnd().compareTo(currentDate) > 0) {
 				output = false;
 			}
+		}
+		}catch(NullPointerException e) {
+			output = false;
 		}
 		return output;
 	}
