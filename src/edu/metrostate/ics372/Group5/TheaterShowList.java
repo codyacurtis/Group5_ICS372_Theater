@@ -3,6 +3,7 @@ package edu.metrostate.ics372.Group5;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class TheaterShowList implements Serializable {
@@ -24,12 +25,12 @@ public class TheaterShowList implements Serializable {
 		}
 	}
 
-	public static void addShow(String id, String name, Date start, Date end) {
+	public static void addShow(String id, String name, Calendar startDate, Calendar endDate) {
 		// Asks the user for the name date and a valid
 		// Need to close on exit
 		if (ClientList.contains(id)) {
-			if (canAdd(start, end)) {
-				showArray.add(new TheaterShow(id, name, start, end));
+			if (canAdd(startDate, endDate)) {
+				showArray.add(new TheaterShow(id, name, startDate, endDate));
 			} else {
 				System.out.println("Can't add show, overlapping times");
 			}
@@ -46,10 +47,10 @@ public class TheaterShowList implements Serializable {
 		}
 	}
 
-	private static boolean canAdd(Date start, Date end) {
+	private static boolean canAdd(Calendar startDate, Calendar endDate) {
 		boolean output = true;
 		for (TheaterShow i : showArray) {
-			if (i.getStart().compareTo(end) > 0 || i.getEnd().compareTo(start) < 0) {
+			if (i.getStart().compareTo(endDate) > 0 || i.getEnd().compareTo(startDate) < 0) {
 				output = false;
 			}
 		}
@@ -60,7 +61,7 @@ public class TheaterShowList implements Serializable {
 		// Tests to see that the client can be removed and does not have any shows that
 		// are open at this time.
 		boolean output = true;
-		Date currentDate = new Date();
+		Calendar currentDate = Calendar.getInstance();
 		for (TheaterShow i : showArray) {
 			if (ClientList.contains(i.getcId()) && i.getEnd().compareTo(currentDate) > 0) {
 				output = false;

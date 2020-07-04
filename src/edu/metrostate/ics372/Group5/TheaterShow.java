@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -15,15 +16,15 @@ public class TheaterShow implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name,cId;
-	private Date start;
-	private Date end;
+	private Calendar start;
+	private Calendar end;
 	private static SimpleDateFormat myFormatObj = new SimpleDateFormat("dd-MM-yyyy");
 	
-	public TheaterShow(String id, String name, Date start, Date end) {
+	public TheaterShow(String id, String name, Calendar startDate, Calendar endDate) {
 		this.cId = id;
 		this.name = name;
-		this.start = start;
-		this.end = end;
+		this.start = startDate;
+		this.end = endDate;
 	}
 
 	public String getcId() {
@@ -34,11 +35,11 @@ public class TheaterShow implements Serializable {
 		return name;
 	}
 
-	public Date getStart() {
+	public Calendar getStart() {
 		return start;
 	}
 
-	public Date getEnd() {
+	public Calendar getEnd() {
 		return end;
 	}
 
@@ -50,11 +51,11 @@ public class TheaterShow implements Serializable {
 		this.name = name;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(Calendar start) {
 		this.start = start;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(Calendar end) {
 		this.end = end;
 	}
 	

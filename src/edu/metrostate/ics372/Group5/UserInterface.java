@@ -204,7 +204,7 @@ public class UserInterface {
 	boolean result = false;
 	if (yesOrNo("is data correct?")) {
 	    // remove client
-	    result = ClientList.removeClientFromList(Integer.parseInt(clientID));
+	    result = ClientList.removeClientFromList(clientID);
 	    // result == null if couldnt be removed
 	}
 
