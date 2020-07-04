@@ -3,7 +3,7 @@ package edu.metrostate.ics372.Group5;
 import java.io.Serializable;
 
 //Isiah, 2,3,4,10,11
-public class Client implements Serializable{
+public class Client implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,6 +12,7 @@ public class Client implements Serializable{
 	private String id;
 	private double balance;
 
+	// Constructor for the client object
 	public Client(String name, String adress, String phoneNumber) {
 		this.name = name;
 		this.adress = adress;
@@ -22,14 +23,16 @@ public class Client implements Serializable{
 		System.out.println("New Client: " + toString());
 	}
 
-	public Client(String clientId) {
-		id = clientId;
-	}
-
+	/**
+	 * String of the Client Onjects ID
+	 */
 	public String getId() {
 		return id;
 	}
-	
+
+	/**
+	 * Compares the ids of the Client Objects
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -41,7 +44,7 @@ public class Client implements Serializable{
 		if (obj == this) {
 			return true;
 		}
-		return this.getId() == ((Client) obj).getId();
+		return this.getId().compareTo(((Client) obj).getId()) == 0;
 	}
 
 	@Override
@@ -53,8 +56,5 @@ public class Client implements Serializable{
 	public String toString() {
 		return "Client [name=" + name + ", id=" + id + "]";
 	}
-	
-		
+
 }
-
-

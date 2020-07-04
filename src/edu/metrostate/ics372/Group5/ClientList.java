@@ -16,6 +16,9 @@ public class ClientList implements Serializable {
 	private ClientList() {
 	}
 
+	/**
+	 * Singleton practices
+	 */
 	public static ClientList instance() {
 		if (clientList == null) {
 			return (clientList = new ClientList());
@@ -24,69 +27,76 @@ public class ClientList implements Serializable {
 		}
 	}
 
+	/*
+	 * Searches by ID string, returns a Client object
+	 */
 	public static Client search(String clientId) {
-		if(ClientList.contains(clientId)) {
-		return clientArray.get(clientArray.indexOf(new Client(clientId)));
-		}else {
-			return null;
+		if (ClientIdServer.contains(clientId)) {
+			for (Client i : clientArray) {
+				if (i.getId().compareTo(clientId) == 0) {
+					return i;
+				}
+			}
 		}
+		return null;
 	}
 
+	/*
+	 * Adds a client to the client arrayList
+	 */
 	public static boolean insertClient(Client client) {
 		clientArray.add(client);
 		return true;
 	}
-	
+
+	/*
+	 * Takes in a client ID, if the client has no current dates then the client will
+	 * be able to be removed
+	 */
 	public static boolean removeClientFromList(String clientId) {
-		if(TheaterShowList.canRemove(clientId)) {
-			clientArray.remove(new Client(clientId));
+		if (TheaterShowList.canRemove(clientId)) {
+			clientArray.remove(search(clientId));
 			ClientIdServer.remove(clientId);
-			System.out.println("Client Removed");
 			return true;
-		}else {
-			System.out.println("Unable to remove Client");
+		} else {
 			return false;
 		}
 	}
-
+	
+	/*
+	 * Prints out each client in the clientArray
+	 */
 	public static void listClients() {
 		for (Client i : clientArray) {
 			System.out.println(i);
 		}
 	}
 
-	public static ArrayList<Client> getClientArray() {
-		return clientArray;
-	}
-	
- 	public static void writeObject(java.io.ObjectOutputStream output) {
- 		try {
- 		    output.writeObject(clientArray);
- 		} catch (IOException e) {
- 		    // TODO Auto-generated catch block
- 		    e.printStackTrace();
- 		}
+	public static void writeObject(java.io.ObjectOutputStream output) {
+		try {
+			output.writeObject(clientArray);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-    @SuppressWarnings("unchecked")
-    public static void readObject(java.io.ObjectInputStream input) {
-	try {
-	    clientArray = (ArrayList<Client>) input.readObject();
-	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	@SuppressWarnings("unchecked")
+	public static void readObject(java.io.ObjectInputStream input) {
+		try {
+			clientArray = (ArrayList<Client>) input.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-    }
 
 	@Override
 	public String toString() {
 		return clientArray.toString();
 	}
 
-	public static boolean contains(String id) {
-		return ClientIdServer.contains(id);
-	}
 }

@@ -19,6 +19,9 @@ public class ClientIdServer implements Serializable {
 		idList = new ArrayList<String>();
 	}
 
+	/**
+	 * Singleton practices
+	 */
 	public static ClientIdServer instance() {
 		if (server == null) {
 			return (server = new ClientIdServer());
@@ -27,20 +30,28 @@ public class ClientIdServer implements Serializable {
 		}
 	}
 
+	/*
+	 * Generates a random String ID that does not already Exist
+	 */
 	public String getId() {
 		Random rnd = new Random();
 		char[] digits = new char[6];
-		digits[0] = (char) (rnd.nextInt(9) + '1');
-		for (int i = 1; i < digits.length; i++) {
-			digits[i] = (char) (rnd.nextInt(10) + '0');
-		}
-		idList.add(new String(digits));
+		String output = "";
+
+		do {
+			digits[0] = (char) (rnd.nextInt(9) + '1');
+			for (int i = 1; i < digits.length; i++) {
+				digits[i] = (char) (rnd.nextInt(10) + '0');
+			}
+		} while (idList.contains(output));
+		output = new String(digits);
+		idList.add(output);
 		return new String(digits);
 	}
 
 	@Override
 	public String toString() {
-		return ("IdServer: " + toString() );
+		return ("IdServer: " + toString());
 	}
 
 	public static void retrieve(ObjectInputStream input) {
@@ -75,10 +86,16 @@ public class ClientIdServer implements Serializable {
 		}
 	}
 
+	/*
+	 * Checks to see if the ID is stored in the server
+	 */
 	public static boolean contains(String id) {
 		return idList.contains(id);
 	}
 
+	/*
+	 * Static method that removes an ID from the ID server
+	 */
 	public static boolean remove(String id) {
 		return idList.remove(id);
 	}

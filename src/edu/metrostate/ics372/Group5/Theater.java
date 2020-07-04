@@ -140,7 +140,7 @@ public class Theater implements Serializable {
 	    ObjectInputStream input = new ObjectInputStream(file);
 	    input.readObject();
 	    CustomerIdServer.retrieve(input);
-	    CustomerList.readTest(input);
+	    CustomerList.readObject(input);
 
 	    // Shows and clients
 	    TheaterShowList.readObject(input);
@@ -168,7 +168,7 @@ public class Theater implements Serializable {
 	    ObjectOutputStream output = new ObjectOutputStream(file);
 	    output.writeObject(theater);
 	    output.writeObject(CustomerIdServer.instance());
-	    CustomerList.writeTest(output);
+	    CustomerList.writeObject(output);
 	    TheaterShowList.writeObject(output);
 	    ClientIdServer.writeObject(output);
 	    ClientList.writeObject(output);

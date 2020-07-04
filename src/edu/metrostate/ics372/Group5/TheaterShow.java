@@ -29,8 +29,7 @@ public class TheaterShow implements Serializable {
 		this.end = endDate;
 	}
 	/**
-	 * 
-	 * @return
+	 * Getters and Setters
 	 */
 	public String getcId() {
 		return cId;
