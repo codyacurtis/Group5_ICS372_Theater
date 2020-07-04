@@ -7,10 +7,10 @@ import java.util.List;
 
 /**
  * 
- * This class creates the customer object and stores it to a linkedList. This
- * class contains method to search for customers, prints all customers, print
- * string, add/remove credit cards and remove customers. This class also stores
- * the credit card information to a hash map where the user ID is the key.
+ * This class creates the customer object and stores it to a linkedList in
+ * CustomerList class. This class contains method to search for customers,
+ * prints all customers, print string, add/remove credit cards and remove
+ * customers. This class also stores the credit card object in a linked list.
  * 
  * 
  * @author Anthony Nguyen
@@ -20,17 +20,15 @@ import java.util.List;
 
 public class Customer implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private String name; // name of customer
     private String address; // address of customer
     private String phone; // customer's phone number
     private String id; // customer's id number
-    private List<CreditCard> creditCardList = new LinkedList();
+    private List<CreditCard> creditCardList = new LinkedList(); // stores customer's credit cards
 
     /**
+     * Constructor for customer object
      * 
      * @param name    customer's name
      * @param address customer's address
@@ -120,6 +118,12 @@ public class Customer implements Serializable {
 	id = newId;
     }
 
+    /**
+     * This will check if a customer have a matching card
+     * 
+     * @param checkCreditCard the card to find
+     * @return true if card is matching
+     */
     public boolean checkCreditCardDuplicate(String checkCreditCard) {
 	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
 	    CreditCard creditCard = (CreditCard) iterator.next();
@@ -127,11 +131,15 @@ public class Customer implements Serializable {
 		return true;
 	    }
 	}
-
 	return false;
-
     }
 
+    /**
+     * Add credit card to linked list of a customer
+     * 
+     * @param creditCard to add to linked list
+     * @return true if card was added to linked list
+     */
     public boolean addCreditCard(CreditCard creditCard) {
 	if (creditCardList.add(creditCard)) {
 	    return true;
@@ -139,19 +147,26 @@ public class Customer implements Serializable {
 	return false;
     }
 
-    public void removeCreditCard(CreditCard creditCard) {
-	creditCardList.remove(creditCard);
-    }
-
+    /**
+     * This method removes a card from the customer credit card collection using
+     * only the credit card number
+     * 
+     * @param removeCreditCard the card to remove from Linked List
+     */
     public void removeCreditCardNumber(String removeCreditCard) {
 	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
 	    CreditCard creditCard = (CreditCard) iterator.next();
 	    if (creditCard.getCreditCardNumber().equals(removeCreditCard)) {
-		creditCardList.remove(creditCard);
+		creditCardList.remove(creditCard); // removes card
 	    }
 	}
     }
 
+    /**
+     * Prints all credit cards from customer
+     * 
+     * @return string data of all credit cards of customer
+     */
     public String printAllCreditCards() {
 	String output = "";
 	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
@@ -161,15 +176,17 @@ public class Customer implements Serializable {
 	return output;
     }
 
+    /**
+     * This method count how many credit card the customer have
+     * 
+     * @return how many cards found
+     */
     public int howManyCards() {
 	return creditCardList.size();
     }
 
     /**
-     * 
-     * This method creates a string version out of the customerList and the
-     * customerCards
-     * 
+     * This method creates a string version out of the customer information
      */
     public String toString() {
 	String StrOutput = "";
