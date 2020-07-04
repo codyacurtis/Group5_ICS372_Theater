@@ -220,4 +220,10 @@ public class Theater implements Serializable {
 	return insert;
     }
 
+	public static Client searchClient(String clientID) {
+		Client client;
+		client = ClientList.search(clientID);
+		return client;
+	}
+
 }

@@ -93,10 +93,4 @@ public class ClientList implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public String toString() {
-		return clientArray.toString();
-	}
-
 }

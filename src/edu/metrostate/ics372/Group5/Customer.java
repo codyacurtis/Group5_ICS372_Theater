@@ -35,7 +35,6 @@ public class Customer implements Serializable {
      * @param phone   customer's phone number
      * @param id      customer ID
      */
-    @SuppressWarnings("unchecked")
     public Customer(String name, String address, String phone) {
 	this.name = name;
 	this.address = address;

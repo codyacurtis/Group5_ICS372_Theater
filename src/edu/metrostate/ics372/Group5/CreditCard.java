@@ -19,7 +19,6 @@ public class CreditCard implements Serializable {
     private static final long serialVersionUID = 1L;
     private String creditCardNumber; // credit card information
     private String expiry; // date when card expires
-    private String Id;
 
     /**
      * this constructor creates the credit Card object
