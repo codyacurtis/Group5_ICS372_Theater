@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * @author Anthony
@@ -134,7 +135,13 @@ public class Theater implements Serializable {
 	    ObjectInputStream input = new ObjectInputStream(file);
 	    input.readObject();
 	    CustomerIdServer.retrieve(input);
-	    CustomerList.readTest(input); // read customerList object to file work around
+	    CustomerList.readTest(input);// read customerList object to file work around
+	    
+	    //Shows and clients
+	    TheaterShowList.readObject(input);
+	    ClientIdServer.readObject(input);
+	    ClientList.readObject(input);
+	    
 	    return theater;
 	} catch (IOException ioe) {
 	    ioe.printStackTrace();
@@ -157,6 +164,11 @@ public class Theater implements Serializable {
 	    output.writeObject(theater);
 	    output.writeObject(CustomerIdServer.instance());
 	    CustomerList.writeTest(output); // write customerList object to file work around
+	    
+	    TheaterShowList.writeObject(output);
+	    ClientIdServer.writeObject(output);
+	    ClientList.writeObject(output);
+	    
 	    return true;
 	} catch (IOException ioe) {
 	    ioe.printStackTrace();

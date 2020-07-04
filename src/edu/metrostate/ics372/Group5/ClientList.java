@@ -24,8 +24,8 @@ public class ClientList implements Serializable {
 		}
 	}
 
-	public static Client search(int clientId) {
-		if(clientArray.contains(new Client(clientId))) {
+	public static Client search(String clientId) {
+		if(ClientList.contains(clientId)) {
 		return clientArray.get(clientArray.indexOf(new Client(clientId)));
 		}else {
 			return null;
@@ -37,9 +37,10 @@ public class ClientList implements Serializable {
 		return true;
 	}
 	
-	public static boolean removeClientFromList(int clientId) {
+	public static boolean removeClientFromList(String clientId) {
 		if(TheaterShowList.canRemove(clientId)) {
 			clientArray.remove(new Client(clientId));
+			ClientIdServer.remove(clientId);
 			System.out.println("Client Removed");
 			return true;
 		}else {
@@ -58,36 +59,34 @@ public class ClientList implements Serializable {
 		return clientArray;
 	}
 	
- 	private void writeObject(java.io.ObjectOutputStream output) {
-		try {
-			output.defaultWriteObject();
-			output.writeObject(clientList);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
+ 	public static void writeObject(java.io.ObjectOutputStream output) {
+ 		try {
+ 		    output.writeObject(clientArray);
+ 		} catch (IOException e) {
+ 		    // TODO Auto-generated catch block
+ 		    e.printStackTrace();
+ 		}
 	}
 
-	private void readObject(java.io.ObjectInputStream input) {
-		try {
-			if (clientList != null) {
-				return;
-			} else {
-				input.defaultReadObject();
-				if (clientList == null) {
-					clientList = (ClientList) input.readObject();
-				} else {
-					input.readObject();
-				}
-			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} catch (ClassNotFoundException cnfe) {
-			cnfe.printStackTrace();
-		}
+    @SuppressWarnings("unchecked")
+    public static void readObject(java.io.ObjectInputStream input) {
+	try {
+	    clientArray = (ArrayList<Client>) input.readObject();
+	} catch (ClassNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+    }
 
 	@Override
 	public String toString() {
 		return clientArray.toString();
+	}
+
+	public static boolean contains(String id) {
+		return ClientIdServer.contains(id);
 	}
 }

@@ -14,20 +14,19 @@ public class TheaterShow implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int cId;
-	private String name;
+	private String name,cId;
 	private Date start;
 	private Date end;
 	private static SimpleDateFormat myFormatObj = new SimpleDateFormat("dd-MM-yyyy");
 	
-	public TheaterShow(int cId, String name, Date start, Date end) {
-		this.cId = cId;
+	public TheaterShow(String id, String name, Date start, Date end) {
+		this.cId = id;
 		this.name = name;
 		this.start = start;
 		this.end = end;
 	}
 
-	public int getcId() {
+	public String getcId() {
 		return cId;
 	}
 
@@ -43,7 +42,7 @@ public class TheaterShow implements Serializable {
 		return end;
 	}
 
-	public void setcId(int cId) {
+	public void setcId(String cId) {
 		this.cId = cId;
 	}
 
