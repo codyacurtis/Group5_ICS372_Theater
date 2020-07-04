@@ -273,7 +273,7 @@ public class UserInterface {
 	do { // loops until the user is happy with the information
 	    name = getToken("Enter customer name");
 	    address = getToken("Enter customer address");
-	    phone = getToken("Enter customer phone");
+	    phone = getToken("Enter customer phone XXX-XXX-XXXX");
 
 	    while (!Theater.validPhone(phone)) {
 		phone = getToken("Enter a valid phone number XXX-XXX-XXXX");
