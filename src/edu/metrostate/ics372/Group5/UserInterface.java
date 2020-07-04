@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
@@ -118,16 +119,15 @@ public class UserInterface {
 	 * @param prompt the prompt
 	 * @return the data as a Calendar object
 	 */
-	public Calendar getDate(String prompt) {
+	public Date getDate(String prompt) {
 		do {
 			try {
-				Calendar date = new GregorianCalendar();
 				String item = getToken(prompt);
-				DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT);
-				date.setTime(dateFormat.parse(item));
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+				Date date = sdf.parse(item);
 				return date;
 			} catch (Exception fe) {
-				System.out.println("Please input a date as mm/dd/yy");
+				System.out.println("Please input a date as MM/dd/yy");
 			}
 		} while (true);
 	}
@@ -369,10 +369,10 @@ public class UserInterface {
 
 	public void addShow() {
 		try {
-			String show = getToken("Enter show");
+			String show = getToken("Enter show name");
 			String clientID = getToken("Enter client ID");
-			Calendar startDate = getDate("Enter Start date");
-			Calendar endDate = getDate("Enter End date");
+			Date startDate = getDate("Enter Start date");
+			Date endDate = getDate("Enter End date");
 
 			if (startDate.compareTo(endDate) < 0) {
 

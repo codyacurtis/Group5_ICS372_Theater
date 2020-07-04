@@ -25,7 +25,7 @@ public class TheaterShowList implements Serializable {
 		}
 	}
 
-	public static boolean addShow(String id, String name, Calendar startDate, Calendar endDate) {
+	public static boolean addShow(String id, String name, Date startDate, Date endDate) {
 		// Asks the user for the name date and a valid
 		// Need to close on exit
 		boolean output = false;
@@ -45,11 +45,12 @@ public class TheaterShowList implements Serializable {
 		}
 	}
 
-	private static boolean canAdd(Calendar startDate, Calendar endDate) {
+	private static boolean canAdd(Date startDate, Date endDate) {
 		boolean output = true;
 		for (TheaterShow i : showArray) {
-			if (i.getStart().compareTo(endDate) > 0 || i.getEnd().compareTo(startDate) < 0) {
+			if (i.getStart().compareTo(endDate) < 0 || i.getEnd().compareTo(startDate) > 0) {
 				output = false;
+				System.out.println("Conflicting Show times");
 			}
 		}
 		return output;
@@ -60,7 +61,7 @@ public class TheaterShowList implements Serializable {
 		// are open at this time.
 		boolean output = true;
 		try {
-		Calendar currentDate = Calendar.getInstance();
+		Date currentDate = new Date();
 		for (TheaterShow i : showArray) {
 			if (ClientList.contains(i.getcId()) && i.getEnd().compareTo(currentDate) > 0) {
 				output = false;
