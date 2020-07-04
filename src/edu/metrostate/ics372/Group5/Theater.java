@@ -43,7 +43,8 @@ public class Theater implements Serializable {
 
     /**
      * This method will check if credit card creditCardNumber is valid, this only
-     * accept American Express, MasterCard, Visa, and Discover card
+     * accept American Express, MasterCard, Visa, Discover card and JCB this method
+     * uses the Luhn algorithim to verify the card
      * 
      * @param creditCardNumber credit card to check
      * @return true if card is valid

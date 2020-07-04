@@ -288,13 +288,13 @@ public class UserInterface {
 
 	do {
 	    // loops until the user is happy with the information
-	    creditCard = getToken("Enter credit card number (Mastercard, Visa, American Express, Discover Card)");
+	    creditCard = getToken("Enter credit card number (Mastercard, Visa, American Express, Discover Card, JCB)");
 	    creditCardNumber = Long.parseLong(creditCard);
 	    expiray = getToken("Enter credit card expiration date");
 	    if (!Theater.isValidCard(creditCardNumber) || !Theater.isDate(expiray)) {
 		System.out.println("Enter a VALID credit card");
-		System.out.println("We accept only Mastercard, Visa, American Express, Discover Card");
-		System.out.println("We DO NOT accept RuPay, Union Pay and JCB");
+		System.out.println("We accept Mastercard, Visa, American Express, Discover Card and JCB");
+		System.out.println("We DO NOT accept RuPay, Union Pay");
 	    } else {
 		break;
 	    }
@@ -393,6 +393,8 @@ public class UserInterface {
 	    expiray = getToken("Enter credit card expiration date");
 	    if (!Theater.isValidCard(creditCardNumber) || !Theater.isDate(expiray)) {
 		System.out.println("Enter a VALID credit card");
+		System.out.println("We accept Mastercard, Visa, American Express, Discover Card and JCB");
+		System.out.println("We DO NOT accept RuPay, Union Pay");
 	    } else {
 		break;
 	    }
