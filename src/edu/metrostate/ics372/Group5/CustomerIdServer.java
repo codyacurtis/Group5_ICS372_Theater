@@ -5,13 +5,18 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * This class is for the id collection and generates a random Id for a new user
+ * being created
+ * 
+ * @author Anthony Nguyen
+ * @since 2020.04.07
+ */
+
 public class CustomerIdServer implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String idCounter;
+    private static final long serialVersionUID = 1L;
+    private String ID; // Customer's ID
     private static CustomerIdServer server;
 
     /*
@@ -19,7 +24,7 @@ public class CustomerIdServer implements Serializable {
      * 
      */
     private CustomerIdServer() {
-	idCounter = generateID();
+	ID = generateID();
     }
 
     /**
@@ -41,7 +46,7 @@ public class CustomerIdServer implements Serializable {
      * @return id of the member
      */
     public String getId() {
-	return idCounter;
+	return ID;
     }
 
     /**
@@ -50,7 +55,7 @@ public class CustomerIdServer implements Serializable {
      */
     @Override
     public String toString() {
-	return ("IdServer" + idCounter);
+	return ("IdServer" + ID);
     }
 
     /**
