@@ -8,14 +8,20 @@ import java.util.LinkedList;
 public class CustomerList implements Serializable {
 
     /**
+     * This class is the collection class for the customers. The class stores the
+     * customers into a linked list and is able to add, remove, search for customers
+     * and return their information.
      * 
+     * @author Anthony Nguyen
+     * @since 2020.04.07
+     * @version 1.0.0
      */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
     private static LinkedList<Customer> customers = new LinkedList<Customer>();
 
     /**
-     * Private for the singleton pattern Creates the creditCard collection
+     * Private for the singleton pattern Creates the Customer List collection
      */
     @SuppressWarnings("static-access")
     private CustomerList() {
@@ -75,7 +81,7 @@ public class CustomerList implements Serializable {
     }
 
     /**
-     * Checks if a customer already exsists in the system
+     * Checks if a customer already exists in the system
      * 
      * @param name    Customer's name
      * @param address customer's address
@@ -106,7 +112,6 @@ public class CustomerList implements Serializable {
 	    if (customer.checkCreditCardDuplicate(creditCard)) {
 		return customer;
 	    }
-
 	}
 	return null;
     }
@@ -136,41 +141,7 @@ public class CustomerList implements Serializable {
      * 
      * @param output the stream to be written to
      */
-    private void writeObject(java.io.ObjectOutputStream output) {
-	try {
-	    output.defaultWriteObject();
-	    output.writeObject(customerList);
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
-	}
-    }
-
-    /*
-     * Supports serialization
-     * 
-     * @param input the stream to be read from
-     */
-    private void readObject(java.io.ObjectInputStream input) {
-	try {
-	    if (customerList != null) {
-		return;
-	    } else {
-		input.defaultReadObject();
-		if (customerList == null) {
-		    customerList = (CustomerList) input.readObject();
-		} else {
-		    input.readObject();
-		}
-	    }
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
-	} catch (ClassNotFoundException cnfe) {
-	    cnfe.printStackTrace();
-	}
-    }
-
-    // write object to file work around
-    public static void writeTest(java.io.ObjectOutputStream output) {
+    public static void writeObject(java.io.ObjectOutputStream output) {
 	try {
 	    output.writeObject(customers);
 	} catch (IOException e) {
@@ -180,9 +151,13 @@ public class CustomerList implements Serializable {
 
     }
 
-    // read object from file work around
+    /*
+     * Supports serialization
+     * 
+     * @param input the stream to be read from
+     */
     @SuppressWarnings("unchecked")
-    public static void readTest(java.io.ObjectInputStream input) {
+    public static void readObject(java.io.ObjectInputStream input) {
 	try {
 	    customers = (LinkedList<Customer>) input.readObject();
 	} catch (ClassNotFoundException e) {
