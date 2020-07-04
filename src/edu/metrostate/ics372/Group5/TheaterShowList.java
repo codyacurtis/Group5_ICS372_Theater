@@ -25,19 +25,17 @@ public class TheaterShowList implements Serializable {
 		}
 	}
 
-	public static void addShow(String id, String name, Calendar startDate, Calendar endDate) {
+	public static boolean addShow(String id, String name, Calendar startDate, Calendar endDate) {
 		// Asks the user for the name date and a valid
 		// Need to close on exit
+		boolean output = false;
 		if (ClientList.contains(id)) {
 			if (canAdd(startDate, endDate)) {
 				showArray.add(new TheaterShow(id, name, startDate, endDate));
-			} else {
-				System.out.println("Can't add show, overlapping times");
+				output = true;
 			}
-		} else {
-			System.out.println("Client does not exist");
 		}
-
+		return output;
 	}
 
 	public static void listShows() {
