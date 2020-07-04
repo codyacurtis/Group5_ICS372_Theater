@@ -25,7 +25,7 @@ public class Customer implements Serializable {
     private String address; // address of customer
     private String phone; // customer's phone number
     private String id; // customer's id number
-    private List<CreditCard> creditCardList = new LinkedList(); // stores customer's credit cards
+    private List<CreditCard> creditCardList = new LinkedList<CreditCard>(); // stores customers credit cards
 
     /**
      * Constructor for customer object
