@@ -413,9 +413,9 @@ public class UserInterface {
     @SuppressWarnings("static-access")
     private void save() {
 	if (theater.save()) {
-	    System.out.println(" The Theater has been successfully saved in the file TheaterData \n");
+	    System.out.println("The Theater has been successfully saved in the file TheaterData \n");
 	} else {
-	    System.out.println(" There has been an error in saving \n");
+	    System.out.println("There has been an error in saving \n");
 	}
     }
 
@@ -428,7 +428,7 @@ public class UserInterface {
 	try {
 	    Theater tempTheater = Theater.retrieve();
 	    if (tempTheater != null) {
-		System.out.println(" The theater has been successfully retrieved from the file TheaterData \n");
+		System.out.println("The theater has been successfully retrieved from the file TheaterData \n");
 		theater = tempTheater;
 	    } else {
 		System.out.println("File doesnt exist; creating new theater");
