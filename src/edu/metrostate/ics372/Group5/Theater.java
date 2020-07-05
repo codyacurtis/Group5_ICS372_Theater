@@ -32,13 +32,36 @@ public class Theater implements Serializable {
 	customerList = CustomerList.instance();
     }
 
+    /**
+     * instantiate all singletons
+     * 
+     * @return Theater object
+     */
     public static Theater instance() {
 	if (theater == null) {
-	    CustomerIdServer.instance(); // instantiate all singletons
+	    CustomerIdServer.instance();
 	    return (theater = new Theater());
 	} else {
 	    return theater;
 	}
+    }
+
+    /**
+     * Check if string is all numbers
+     * 
+     * @param string to check if only have numbers
+     * @return true if have only numbers
+     */
+    public static boolean isNumeric(String string) {
+	if (string == null) {
+	    return false;
+	}
+	try {
+	    long number = Long.parseLong(string);
+	} catch (NumberFormatException nfe) {
+	    return false;
+	}
+	return true;
     }
 
     /**
