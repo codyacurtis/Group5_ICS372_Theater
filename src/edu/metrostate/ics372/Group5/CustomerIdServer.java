@@ -3,7 +3,8 @@ package edu.metrostate.ics372.Group5;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Random;
+
+import org.junit.jupiter.api.MethodOrderer.Random;
 
 /**
  * This class is for the id collection and generates a random Id for a new user
@@ -24,7 +25,7 @@ public class CustomerIdServer implements Serializable {
      * 
      */
     private CustomerIdServer() {
-	ID = generateID();
+	ID = randomID();
     }
 
     /**
@@ -63,14 +64,14 @@ public class CustomerIdServer implements Serializable {
      * 
      * @return random ID number
      */
-    public String generateID() {
+    public static String randomID() {
+	// It will generate 6 digit random Number.
+	// from 0 to 999999
 	Random rnd = new Random();
-	char[] digits = new char[6];
-	digits[0] = (char) (rnd.nextInt(9) + '1');
-	for (int i = 1; i < digits.length; i++) {
-	    digits[i] = (char) (rnd.nextInt(10) + '0');
-	}
-	return new String(digits);
+	int number = rnd.nextInt(999999);
+
+	// this will convert any number sequence into 6 character.
+	return String.format("%06d", number);
     }
 
     /**
