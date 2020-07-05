@@ -64,7 +64,8 @@ public class CustomerList implements Serializable {
     }
 
     /**
-     * search for a customer in the collection and returns the customer object
+     * search for a customer in the collection and returns the customer object if
+     * found
      * 
      * @param Id customer's ID
      * @return customer object
@@ -73,7 +74,7 @@ public class CustomerList implements Serializable {
     public static Customer searchCustomer(String Id) {
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
-	    if (customer.getId().equals(Id)) {
+	    if (customer.match(Id)) {
 		return customer;
 	    }
 	}

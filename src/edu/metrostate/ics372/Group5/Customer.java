@@ -117,7 +117,7 @@ public class Customer implements Serializable {
     }
 
     /**
-     * This will check if a customer have a matching card
+     * This will check if a customer have a matching card in the system
      * 
      * @param checkCreditCard the card to find
      * @return true if card is matching
@@ -125,7 +125,7 @@ public class Customer implements Serializable {
     public boolean checkCreditCardDuplicate(String checkCreditCard) {
 	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
 	    CreditCard creditCard = (CreditCard) iterator.next();
-	    if (creditCard.getCreditCardNumber().equals(checkCreditCard)) {
+	    if (creditCard.match(checkCreditCard)) {
 		return true;
 	    }
 	}
@@ -154,7 +154,7 @@ public class Customer implements Serializable {
     public void removeCreditCardNumber(String removeCreditCard) {
 	for (Iterator<CreditCard> iterator = creditCardList.iterator(); iterator.hasNext();) {
 	    CreditCard creditCard = (CreditCard) iterator.next();
-	    if (creditCard.getCreditCardNumber().equals(removeCreditCard)) {
+	    if (creditCard.match(removeCreditCard)) {
 		creditCardList.remove(creditCard); // removes card
 	    }
 	}
@@ -181,6 +181,16 @@ public class Customer implements Serializable {
      */
     public int howManyCards() {
 	return creditCardList.size();
+    }
+
+    /**
+     * Check if the id matches with the number
+     * 
+     * @param Number to check if match with object id
+     * @return true if it matches
+     */
+    public boolean match(String Number) {
+	return this.id.equals(Number);
     }
 
     /**
