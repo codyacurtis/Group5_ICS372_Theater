@@ -271,7 +271,6 @@ public class UserInterface {
 	System.out.println("Adding Customer");
 
 	do { // loops until the user is happy with the information
-
 	    name = getToken("Enter customer name or Enter (C/c) to return to main menu");
 	    if (cancel(name)) // return to menu
 		return;
