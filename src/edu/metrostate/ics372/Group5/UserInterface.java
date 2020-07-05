@@ -271,12 +271,18 @@ public class UserInterface {
 	System.out.println("Adding Customer");
 
 	do { // loops until the user is happy with the information
-	    name = getToken("Enter customer name");
+
+	    name = getToken("Enter customer name or Enter (C/c) to return to main menu");
+	    if (cancel(name)) // return to menu
+		return;
+
 	    address = getToken("Enter customer address");
 	    phone = getToken("Enter customer phone XXX-XXX-XXXX");
 
 	    while (!Theater.validPhone(phone)) {
-		phone = getToken("Enter a valid phone number XXX-XXX-XXXX");
+		phone = getToken("Enter a valid phone number XXX-XXX-XXXX or Enter (C/c) to return to main menu");
+		if (cancel(phone)) // return to menu
+		    return;
 	    }
 
 	    if (!yesOrNo("Is this correct: \nName: " + name + "\nAddress: " + address + "\nPhone Number: " + phone)) {
@@ -288,13 +294,22 @@ public class UserInterface {
 
 	do {
 	    // loops until the user is happy with the information
-	    creditCard = getToken("Enter credit card number (Mastercard, Visa, American Express, Discover Card, JCB)");
+	    System.out.println("Enter (C/c) to return to main menu");
+	    creditCard = getToken(
+		    "Enter a credit card number (Mastercard, Visa, American Express, Discover Card, JCB)");
+	    if (cancel(creditCard)) // return to menu
+		return;
+
+	    if (!Theater.isNumeric(creditCard)) {
+		continue;
+	    }
+
 	    creditCardNumber = Long.parseLong(creditCard);
 	    expiray = getToken("Enter credit card expiration date");
 	    if (!Theater.isValidCard(creditCardNumber) || !Theater.isDate(expiray)) {
 		System.out.println("Enter a VALID credit card");
-		System.out.println("We accept Mastercard, Visa, American Express, Discover Card and JCB");
 		System.out.println("We DO NOT accept RuPay, Union Pay");
+
 	    } else {
 		break;
 	    }
@@ -316,8 +331,11 @@ public class UserInterface {
 	    System.out.println("Customer already in system");
 	    System.out.println("Customer not added");
 	    return;
-	} else
+	} else {
 	    System.out.println("Added Customer");
+	    System.out.println(result.toString());
+	}
+
     }
 
     /**
@@ -334,7 +352,10 @@ public class UserInterface {
 	    // checks if user wants to return to main menu
 	    if (cancel(customerID))
 		return;
-
+	    if (!Theater.isNumeric(customerID)) {
+		System.out.println("Enter a valid ID");
+		continue;
+	    }
 	    customer = Theater.searchCustomer(customerID); // searches for customer
 
 	    if (customer == null) {
@@ -345,12 +366,10 @@ public class UserInterface {
 	    System.out.println(customer);
 	    if (yesOrNo("Is this correct?")) {
 		break;
-	    } else
-		customerID = getToken("Try again");
-
+	    }
 	} while (true);
 
-	if (yesOrNo("Are you sure?")) {
+	if (yesOrNo("Delete customer?")) {
 	    Theater.removeCustomer(customerID); // delete customer
 	    System.out.println("Customer deleted");
 	} else
@@ -371,7 +390,15 @@ public class UserInterface {
 	String customerID, creditCard, expiray;
 	long creditCardNumber;
 	do { // checks if the information is correct
-	    customerID = getToken("Enter id");
+	    customerID = getToken("Enter ID or Enter (C/c) to return to main menu");
+	    if (cancel(customerID))
+		return;
+
+	    if (!Theater.isNumeric(customerID)) {
+		System.out.println("Enter a valid ID");
+		continue;
+	    }
+
 	    customer = Theater.searchCustomer(customerID); // search for customer with the same card
 	    if (customer == null) { // customer isn't found
 		System.out.println("Customer not found");
@@ -388,7 +415,14 @@ public class UserInterface {
 
 	do {
 	    // checks if card is valid
-	    creditCard = getToken("Enter credit card number");
+	    creditCard = getToken("Enter credit card number or Enter (C/c) to return to main menu");
+	    if (cancel(creditCard)) // return to menu
+		return;
+
+	    if (!Theater.isNumeric(creditCard)) { // check if only has numbers
+		continue;
+	    }
+
 	    creditCardNumber = Long.parseLong(creditCard);
 	    expiray = getToken("Enter credit card expiration date");
 	    if (!Theater.isValidCard(creditCardNumber) || !Theater.isDate(expiray)) {
@@ -419,17 +453,26 @@ public class UserInterface {
      * card.
      */
     public void removeCreditCard() {
-	String creditCardNumber = getToken("Enter credit card number or (C/c) to return to main menu");
-	// checks if user wants to return to main menu
-	if (cancel(creditCardNumber))
-	    return;
-	Customer customer = Theater.customerCreditCard(creditCardNumber); // searches for customer with the card in the
+	String creditCardString;
+
+	do {
+	    // checks if card is valid
+	    creditCardString = getToken("Enter credit card number or Enter (C/c) to return to main menu");
+	    if (cancel(creditCardString)) // return to menu
+		return;
+
+	    if (Theater.isNumeric(creditCardString)) { // check if only has numbers
+		break;
+	    }
+	} while (true);
+
+	Customer customer = Theater.customerCreditCard(creditCardString); // searches for customer with the card in the
 	// system
 	if (customer == null) {
 	    System.out.println("card doesn't exist in system");
 	    // checks if it is the correct customer
 	} else if (yesOrNo(customer.toString() + "\nIs this correct?")) {
-	    if (Theater.removeCreditCard(creditCardNumber, customer)) {
+	    if (Theater.removeCreditCard(creditCardString, customer)) {
 		System.out.println("card removed");
 	    }
 	}
