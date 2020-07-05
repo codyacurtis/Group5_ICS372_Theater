@@ -243,6 +243,18 @@ public class Theater implements Serializable {
     }
 
     /**
+     * This will create a new credit card
+     * 
+     * @param creditCardNumber card number
+     * @param expiray          card expiration date
+     * @return creditCard object
+     */
+    public static CreditCard newCreditCard(String creditCardNumber, String expiray) {
+	CreditCard creditCard = new CreditCard(creditCardNumber, expiray);
+	return creditCard;
+    }
+
+    /**
      * This removes a credit card from a user, but it will check if customer have
      * more than 1 card
      * 
