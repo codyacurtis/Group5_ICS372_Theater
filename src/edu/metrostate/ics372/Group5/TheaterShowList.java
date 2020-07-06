@@ -3,7 +3,6 @@ package edu.metrostate.ics372.Group5;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class TheaterShowList implements Serializable {
@@ -60,7 +59,7 @@ public class TheaterShowList implements Serializable {
 	private static boolean canAdd(Date startDate, Date endDate) {
 		boolean output = true;
 		for (TheaterShow i : showArray) {
-			if (i.getStart().compareTo(endDate) < 0 || i.getEnd().compareTo(startDate) > 0) {
+			if (i.getStart().compareTo(endDate) < 0 && i.getEnd().compareTo(startDate) > 0) {
 				output = false;
 				System.out.println("Conflicting Show times");
 			}

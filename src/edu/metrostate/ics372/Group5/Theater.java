@@ -21,8 +21,10 @@ import java.io.Serializable;
 public class Theater implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static CustomerList customerList;
     private static Theater theater;
+	private CustomerList customerList;
+	private ClientList clientList;
+	private TheaterShowList theaterShowList;
 
     /**
      * Private for the singleton pattern Creates the catalog and member collection
@@ -30,6 +32,8 @@ public class Theater implements Serializable {
      */
     private Theater() {
 	customerList = CustomerList.instance();
+	clientList = ClientList.instance();
+	theaterShowList = TheaterShowList.instance();
     }
 
     /**
@@ -279,7 +283,6 @@ public class Theater implements Serializable {
      * @return string data of customers and cards
      */
     public static String listCustomers() {
-	String output = "";
 	return CustomerList.printAll();
     }
 
@@ -293,7 +296,7 @@ public class Theater implements Serializable {
 	    FileInputStream file = new FileInputStream("TheaterData");
 	    ObjectInputStream input = new ObjectInputStream(file);
 	    input.readObject();
-	    CustomerIdServer.retrieve(input);
+	    CustomerIdServer.readObject(input);
 	    CustomerList.readObject(input);
 
 	    // Shows and clients
@@ -321,7 +324,7 @@ public class Theater implements Serializable {
 	    FileOutputStream file = new FileOutputStream("TheaterData");
 	    ObjectOutputStream output = new ObjectOutputStream(file);
 	    output.writeObject(theater);
-	    output.writeObject(CustomerIdServer.instance());
+	    CustomerIdServer.writeObject(output);
 	    CustomerList.writeObject(output);
 	    TheaterShowList.writeObject(output);
 	    ClientIdServer.writeObject(output);

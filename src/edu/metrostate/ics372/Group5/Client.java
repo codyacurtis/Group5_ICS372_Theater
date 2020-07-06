@@ -8,14 +8,14 @@ public class Client implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name, adress, phoneNumber;
+	private String name, address, phoneNumber;
 	private String id;
 	private double balance;
 
 	// Constructor for the client object
-	public Client(String name, String adress, String phoneNumber) {
+	public Client(String name, String address, String phoneNumber) {
 		this.name = name;
-		this.adress = adress;
+		this.address = address;
 		this.phoneNumber = phoneNumber;
 		balance = 0;
 		// this is to make sure that there are not dublicates
@@ -27,7 +27,7 @@ public class Client implements Serializable {
 	 * String of the Client Onjects ID
 	 */
 	public String getId() {
-		return id;
+		return id; 
 	}
 
 	/**

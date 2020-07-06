@@ -1,14 +1,8 @@
 package edu.metrostate.ics372.Group5;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 
 //Isiah, 2,3,4,10,11
 public class TheaterShow implements Serializable {

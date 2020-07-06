@@ -2,6 +2,7 @@ package edu.metrostate.ics372.Group5;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -18,7 +19,7 @@ public class CustomerList implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
-    private static LinkedList<Customer> customers = new LinkedList<Customer>();
+    private static ArrayList<Customer> customers = new ArrayList<Customer>();
 
     /**
      * Private for the singleton pattern Creates the Customer List collection
@@ -160,7 +161,7 @@ public class CustomerList implements Serializable {
     @SuppressWarnings("unchecked")
     public static void readObject(java.io.ObjectInputStream input) {
 	try {
-	    customers = (LinkedList<Customer>) input.readObject();
+	    customers = (ArrayList<Customer>) input.readObject();
 	} catch (ClassNotFoundException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();

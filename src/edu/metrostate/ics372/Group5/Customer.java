@@ -39,7 +39,7 @@ public class Customer implements Serializable {
 	this.name = name;
 	this.address = address;
 	this.phone = phone;
-	id = CustomerIdServer.randomID();
+	this.id = (CustomerIdServer.instance()).getId();
     }
 
     /**

@@ -43,8 +43,8 @@ public class ClientIdServer implements Serializable {
 			for (int i = 1; i < digits.length; i++) {
 				digits[i] = (char) (rnd.nextInt(10) + '0');
 			}
+			output = new String(digits);
 		} while (idList.contains(output));
-		output = new String(digits);
 		idList.add(output);
 		return new String(digits);
 	}

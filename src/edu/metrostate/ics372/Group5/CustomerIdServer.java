@@ -3,8 +3,8 @@ package edu.metrostate.ics372.Group5;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-
-import org.junit.jupiter.api.MethodOrderer.Random;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is for the id collection and generates a random Id for a new user
@@ -17,108 +17,91 @@ import org.junit.jupiter.api.MethodOrderer.Random;
 public class CustomerIdServer implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String ID; // Customer's ID
     private static CustomerIdServer server;
+	private static ArrayList<String> customerIdList;
 
-    /*
-     * Private constructor for singleton pattern
-     * 
-     */
-    private CustomerIdServer() {
-	ID = randomID();
-    }
-
-    /**
-     * Supports the singleton pattern
-     * 
-     * @return the singleton object
-     */
-    public static CustomerIdServer instance() {
-	if (server == null) {
-	    return (server = new CustomerIdServer());
-	} else {
-	    return server;
+	private CustomerIdServer() {
+		customerIdList = new ArrayList<String>();
 	}
-    }
 
-    /**
-     * Getter for id
-     * 
-     * @return id of the member
-     */
-    public String getId() {
-	return ID;
-    }
-
-    /**
-     * String form of the collection
-     * 
-     */
-    @Override
-    public String toString() {
-	return ("IdServer" + ID);
-    }
-
-    /**
-     * This method generates a random 6 digits number to assign a new customer
-     * 
-     * @return random ID number
-     */
-    public static String randomID() {
-	// It will generate 6 digit random Number.
-	// from 0 to 999999
-	Random rnd = new Random();
-	int number = rnd.nextInt(999999);
-
-	// this will convert any number sequence into 6 character.
-	return String.format("%06d", number);
-    }
-
-    /**
-     * Retrieves the server object
-     * 
-     * @param input inputstream for deserialization
-     */
-    public static void retrieve(ObjectInputStream input) {
-	try {
-	    server = (CustomerIdServer) input.readObject();
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
-	} catch (Exception cnfe) {
-	    cnfe.printStackTrace();
+	/**
+	 * Singleton practices
+	 */
+	public static CustomerIdServer instance() {
+		if (server == null) {
+			return (server = new CustomerIdServer());
+		} else {
+			return server;
+		}
 	}
-    }
 
-    /*
-     * Supports serialization
-     * 
-     * @param output the stream to be written to
-     */
-    private void writeObject(java.io.ObjectOutputStream output) throws IOException {
-	try {
-	    output.defaultWriteObject();
-	    output.writeObject(server);
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
+	/*
+	 * Generates a random String ID that does not already Exist
+	 */
+	public String getId() {
+		Random rnd = new Random();
+		char[] digits = new char[6];
+		String output = "";
+
+		do {
+			digits[0] = (char) (rnd.nextInt(9) + '1');
+			for (int i = 1; i < digits.length; i++) {
+				digits[i] = (char) (rnd.nextInt(10) + '0');
+			}
+			output = new String(digits);
+		} while (customerIdList.contains(output));
+		customerIdList.add(output);
+		return new String(digits);
 	}
-    }
 
-    /*
-     * Supports serialization
-     * 
-     * @param input the stream to be read from
-     */
-    private void readObject(java.io.ObjectInputStream input) throws IOException, ClassNotFoundException {
-	try {
-	    input.defaultReadObject();
-	    if (server == null) {
-		server = (CustomerIdServer) input.readObject();
-	    } else {
-		input.readObject();
-	    }
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
+	@Override
+	public String toString() {
+		return ("IdServer: " + toString());
 	}
-    }
 
+	public static void retrieve(ObjectInputStream input) {
+		try {
+			server = (CustomerIdServer) input.readObject();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (Exception cnfe) {
+			cnfe.printStackTrace();
+		}
+	}
+
+	public static void writeObject(java.io.ObjectOutputStream output) throws IOException {
+		try {
+			output.writeObject(customerIdList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void readObject(java.io.ObjectInputStream input) {
+		try {
+			customerIdList = (ArrayList<String>) input.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Checks to see if the ID is stored in the server
+	 */
+	public static boolean contains(String id) {
+		return customerIdList.contains(id);
+	}
+
+	/*
+	 * Static method that removes an ID from the ID server
+	 */
+	public static boolean remove(String id) {
+		return customerIdList.remove(id);
+	}
 }
