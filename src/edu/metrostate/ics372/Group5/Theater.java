@@ -22,9 +22,9 @@ public class Theater implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static Theater theater;
-	private CustomerList customerList;
-	private ClientList clientList;
-	private TheaterShowList theaterShowList;
+    private CustomerList customerList;
+    private ClientList clientList;
+    private TheaterShowList theaterShowList;
 
     /**
      * Private for the singleton pattern Creates the catalog and member collection
@@ -371,12 +371,26 @@ public class Theater implements Serializable {
 	}
     }
 
+    /**
+     * creates a client and add it the client collection
+     * 
+     * @param name    client name
+     * @param address client address
+     * @param phone   client phone number
+     * @return client if created
+     */
     public Client addClient(String name, String address, String phone) {
 	Client insert = new Client(name, address, phone);
 	ClientList.insertClient(insert);
 	return insert;
     }
 
+    /**
+     * Search for client in the client list
+     * 
+     * @param clientID ID of client to search for
+     * @return client object if found
+     */
     public static Client searchClient(String clientID) {
 	Client client;
 	client = ClientList.search(clientID);
