@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+
+/**
+ * This class is the collection class for the customers. The class stores the
+ * customers into a linked list and is able to add, remove, search for customers
+ * and return their information.
+ * 
+ * @author Anthony Nguyen
+ * @since 2020.04.07
+ * @version 1.0.0
+ */
 
 public class CustomerList implements Serializable {
 
-    /**
-     * This class is the collection class for the customers. The class stores the
-     * customers into a linked list and is able to add, remove, search for customers
-     * and return their information.
-     * 
-     * @author Anthony Nguyen
-     * @since 2020.04.07
-     * @version 1.0.0
-     */
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
     private static ArrayList<Customer> customers = new ArrayList<Customer>();
