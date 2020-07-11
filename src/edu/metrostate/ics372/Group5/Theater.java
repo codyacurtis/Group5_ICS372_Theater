@@ -37,7 +37,7 @@ public class Theater implements Serializable {
     }
 
     /**
-     * instantiate all singletons
+     * instantiate all singletons- 
      * 
      * @return Theater object
      */
