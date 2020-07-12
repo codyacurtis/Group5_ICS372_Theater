@@ -93,8 +93,8 @@ public class CustomerList implements Serializable {
     public static boolean checkNewCustomer(String name, String address, String phone) {
 	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
 	    Customer customer = (Customer) iterator.next();
-	    if (customer.getName().equalsIgnoreCase(name) && customer.getAddresss().equalsIgnoreCase(address)
-		    && customer.getPhone().equals(phone)) {
+	    if (customer.getName().equalsIgnoreCase(name) && customer.getAddress().equalsIgnoreCase(address)
+		    && customer.getPhoneNumber().equals(phone)) {
 		return true;
 	    }
 	}

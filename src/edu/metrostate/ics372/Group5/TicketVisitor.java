@@ -1,3 +1,4 @@
+package edu.metrostate.ics372.Group5;
 public interface TicketVisitor {
 
     public void visit(Ticket ticket);

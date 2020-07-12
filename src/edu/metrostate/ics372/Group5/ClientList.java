@@ -6,14 +6,12 @@ import java.util.ArrayList;
 
 public class ClientList implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Client> clientArray = new ArrayList<Client>();
 	private static ClientList clientList;
 
 	private ClientList() {
+		super();
 	}
 
 	/**
