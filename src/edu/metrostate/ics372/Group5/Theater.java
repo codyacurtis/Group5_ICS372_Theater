@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * This class is the helper for the CustomerList, Customer, and ClienteList This
@@ -21,10 +23,14 @@ import java.io.Serializable;
 public class Theater implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final int GENERALTICKET = 0;
+    public static final int ADVANCETICKET = 1;
+    public static final int STUDENTTICKET = 2;
     private static Theater theater;
     private CustomerList customerList;
     private ClientList clientList;
     private TheaterShowList theaterShowList;
+    private TicketHelper ticketHelper;
 
     /**
      * Private for the singleton pattern Creates the catalog and member collection
@@ -37,7 +43,7 @@ public class Theater implements Serializable {
     }
 
     /**
-     * instantiate all singletons- 
+     * instantiate all singletons-
      * 
      * @return Theater object
      */
@@ -395,6 +401,20 @@ public class Theater implements Serializable {
 	Client client;
 	client = ClientList.search(clientID);
 	return client;
+    }
+
+    public void printTicketDate(Date date) {
+	String output = "";
+
+	for (Iterator<Ticket> ticketIterator = ticketHelper.iterator(); ticketIterator.hasNext();) {
+	    Ticket ticket = ticketIterator.next();
+	    if (ticket.getShowDate().compareTo(date) == 0) {
+		output += ticket.toString();
+	    }
+
+	}
+
+	System.out.println(output);
     }
 
 }
