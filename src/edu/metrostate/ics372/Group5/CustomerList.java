@@ -15,7 +15,7 @@ import java.util.Iterator;
  * @version 1.0.0
  */
 
-public class CustomerList implements Serializable {
+public class CustomerList extends PeopleList implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static CustomerList customerList;
@@ -47,10 +47,10 @@ public class CustomerList implements Serializable {
      * @param customer the customer to be inserted
      * @return true if the member could be inserted. Currently always true
      */
-    public static boolean insertCustomer(Customer customer) {
-	customers.add(customer);
-	return true;
-    }
+//    public static boolean insertCustomer(Customer customer) {
+//	customers.add(customer);
+//	return true;
+//    }
 
     /**
      * Removes a customer from the collection
@@ -58,11 +58,11 @@ public class CustomerList implements Serializable {
      * @param Id the target to remove
      * @return true if customer is removed
      */
-    public static boolean removeCustomer(Customer customer) {
-	customers.remove(customer);
-	return true;
-
-    }
+//    public static boolean removeCustomer(Customer customer) {
+//	customers.remove(customer);
+//	return true;
+//
+//    }
 
     /**
      * search for a customer in the collection and returns the customer object if
@@ -72,15 +72,15 @@ public class CustomerList implements Serializable {
      * @return customer object
      * 
      */
-    public static Customer searchCustomer(String Id) {
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
-	    Customer customer = (Customer) iterator.next();
-	    if (customer.match(Id)) {
-		return customer;
-	    }
-	}
-	return null; // customer not found
-    }
+//    public static Customer searchCustomer(String Id) {
+//	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
+//	    Customer customer = (Customer) iterator.next();
+//	    if (customer.match(Id)) {
+//		return customer;
+//	    }
+//	}
+//	return null; // customer not found
+//    }
 
     /**
      * Checks if a customer already exists in the system
@@ -123,52 +123,52 @@ public class CustomerList implements Serializable {
      * 
      * @return string data of customers and credit cards
      */
-    public static String printAll() {
-	String output = "\n";
-
-	if (customers.isEmpty())
-	    return output = "List Empty";
-
-	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
-	    Customer customer = (Customer) iterator.next();
-	    output += customer.toString();
-	    output += customer.printAllCreditCards() + "\n";
-	}
-
-	return output;
-    }
+//    public static String printAll() {
+//	String output = "\n";
+//
+//	if (customers.isEmpty())
+//	    return output = "List Empty";
+//
+//	for (Iterator<Customer> iterator = customers.iterator(); iterator.hasNext();) {
+//	    Customer customer = (Customer) iterator.next();
+//	    output += customer.toString();
+//	    output += customer.printAllCreditCards() + "\n";
+//	}
+//
+//	return output;
+//    }
 
     /*
      * Supports serialization
      * 
      * @param output the stream to be written to
      */
-    public static void writeObject(java.io.ObjectOutputStream output) {
-	try {
-	    output.writeObject(customers);
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-
-    }
+//    public static void writeObject(java.io.ObjectOutputStream output) {
+//	try {
+//	    output.writeObject(customers);
+//	} catch (IOException e) {
+//	    // TODO Auto-generated catch block
+//	    e.printStackTrace();
+//	}
+//
+//    }
 
     /*
      * Supports serialization
      * 
      * @param input the stream to be read from
      */
-    @SuppressWarnings("unchecked")
-    public static void readObject(java.io.ObjectInputStream input) {
-	try {
-	    customers = (ArrayList<Customer>) input.readObject();
-	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-    }
+//    @SuppressWarnings("unchecked")
+//    public static void readObject(java.io.ObjectInputStream input) {
+//	try {
+//	    customers = (ArrayList<Customer>) input.readObject();
+//	} catch (ClassNotFoundException e) {
+//	    // TODO Auto-generated catch block
+//	    e.printStackTrace();
+//	} catch (IOException e) {
+//	    // TODO Auto-generated catch block
+//	    e.printStackTrace();
+//	}
+//    }
 
 }
