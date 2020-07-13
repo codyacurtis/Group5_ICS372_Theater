@@ -25,7 +25,7 @@ public class Customer extends People implements Serializable {
 	private List<CreditCard> creditCardList = new LinkedList<CreditCard>(); // stores customers credit cards
 
 	public Customer(String name, String address, String phone) {
-		super(phone, phone, phone);
+		super(name, address, phone);
 		this.id = (CustomerIdServer.instance()).getId();
 	}
 

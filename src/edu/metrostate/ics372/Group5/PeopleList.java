@@ -32,7 +32,7 @@ public class PeopleList implements Serializable {
 		peopleArray.add(people);
 		return true;
 	}
-	
+
 	public static boolean removeFromList(String clientId) {
 		if (TheaterShowList.canRemove(clientId)) {
 			peopleArray.remove(search(clientId));
@@ -42,11 +42,16 @@ public class PeopleList implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public static void listPeople() {
-		for (People i : peopleArray) {
-			System.out.println(i.toString());
+		if (peopleArray.isEmpty()) {
+			System.out.println("Empty List");
+		} else {
+			for (People i : peopleArray) {
+				System.out.println(i.toString());
+			}
 		}
+
 	}
 
 	public static void writeObject(java.io.ObjectOutputStream output) {
@@ -57,7 +62,7 @@ public class PeopleList implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static void readObject(java.io.ObjectInputStream input) {
 		try {

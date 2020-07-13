@@ -20,7 +20,7 @@ public class IdServer implements Serializable {
 	if (server == null) {
 	    return server = new IdServer() ;
 	} else {
-	    return (CustomerIdServer) server;
+	    return server;
 	}
     }
 	
