@@ -59,9 +59,9 @@ public class People implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-
 	@Override
 	public String toString() {
-		return this.getClass().toString() + " [name=" + name + ", id=" + id + "]";
+		return "People [name=" + name + ", address=" + address + ", phoneNumber=" + phoneNumber + ", id=" + id + "]";
 	}
+
 }

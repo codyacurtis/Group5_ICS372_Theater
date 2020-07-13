@@ -45,7 +45,7 @@ public class PeopleList implements Serializable {
 	
 	public static void listPeople() {
 		for (People i : peopleArray) {
-			System.out.println(i);
+			System.out.println(i.toString());
 		}
 	}
 
