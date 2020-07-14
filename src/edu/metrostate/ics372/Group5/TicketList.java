@@ -1,57 +1,59 @@
 package edu.metrostate.ics372.Group5;
+
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TicketList<T extends Matchable<K>, K> implements Serializable {
+public class TicketList implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<T> list = new LinkedList<T>();
+    private static TicketList ticketList;
+    protected static List<Ticket> ticketLinkedList = new LinkedList<Ticket>();
 
-    /**
-     * Checks whether ticket with a given id exists.
-     * 
-     * @param key the id of the item
-     * @return the item iff the item exists
-     * 
-     */
-    public T search(K key) {
-	for (T item : list) {
-	    if (item.matches(key)) {
-		return item;
+    public static TicketList instance() {
+	if (ticketList != null) {
+	    ticketList = new TicketList();
+	}
+	return ticketList;
+    }
+
+    public static boolean insert(Ticket ticket) {
+	ticketLinkedList.add(ticket);
+	return true;
+    }
+
+    public static void listTicket() {
+	if (ticketLinkedList.isEmpty()) {
+	    System.out.println("Empty List");
+	} else {
+	    for (Ticket i : ticketLinkedList) {
+		System.out.println(i.toString());
 	    }
 	}
-	return null;
     }
 
-    /**
-     * Adds a ticket to the list.
-     * 
-     * @param item the item to be added
-     * @return true iff the item could be added
-     */
-    public boolean add(T item) {
-	return list.add(item);
+    public static void writeObject(java.io.ObjectOutputStream output) {
+	try {
+	    output.writeObject(ticketLinkedList);
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 
-    /**
-     * Removes a ticket from the list
-     * 
-     * @param item the item to be removed
-     * @return true iff the item could be removed
-     */
-    public boolean remove(T item) {
-	return list.remove(item);
-    }
+    @SuppressWarnings("unchecked")
+    public static void readObject(java.io.ObjectInputStream input) {
+	try {
+	    ticketLinkedList = (List<Ticket>) input.readObject();
+	} catch (ClassNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
-    /**
-     * Returns an iterator for the collection
-     * 
-     * @return iterator for the collection
-     */
-    public Iterator<T> iterator() {
-	return list.iterator();
     }
 
 }

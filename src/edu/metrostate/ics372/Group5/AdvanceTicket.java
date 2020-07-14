@@ -1,4 +1,5 @@
 package edu.metrostate.ics372.Group5;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,8 +11,8 @@ public class AdvanceTicket extends Ticket implements Serializable, Matchable<Str
     private String ticketType;
     private double price;
 
-    public AdvanceTicket(Date date, String customerID, String showID, String showName, double price) {
-	super(date, customerID, showID, showName);
+    public AdvanceTicket(Date date, String customerID, String showName, double price) {
+	super(date, customerID, showName);
 	this.ticketType = "Advance";
 	this.price = price * .7;
 	this.ticketID = ADVANCE_TICKET_STRING + (TicketHelper.instance()).getRandomNumberString();

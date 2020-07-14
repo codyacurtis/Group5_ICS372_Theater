@@ -1,31 +1,41 @@
 package edu.metrostate.ics372.Group5;
-import java.io.IOException;
-import java.util.Random;
 
-public class TicketHelper extends TicketList<Ticket, String> {
+import java.util.Date;
 
+import org.junit.jupiter.api.MethodOrderer.Random;
+
+public class TicketHelper extends TicketList {
+
+    private static final long serialVersionUID = 1L;
     private static TicketHelper ticketHelper;
 
-    /*
-     * Private constructor for singleton pattern
-     */
     private TicketHelper() {
+	super();
     }
 
-    /**
-     * Supports the singleton pattern
-     * 
-     * @return the singleton object
-     */
     public static TicketHelper instance() {
-	if (ticketHelper == null) {
-	    return (ticketHelper = new TicketHelper());
-	} else {
-	    return ticketHelper;
+	if (ticketHelper != null) {
+	    ticketHelper = new TicketHelper();
 	}
+	return ticketHelper;
     }
 
-    public String getRandomNumberString() {
+    public boolean insertTicket(Ticket ticket) {
+	return super.insert(ticket);
+    }
+
+    public static void listTicket() {
+	if (ticketLinkedList.isEmpty()) {
+	    System.out.println("Empty List");
+	} else {
+	    for (Ticket i : ticketLinkedList) {
+		System.out.println(i.toString());
+	    }
+	}
+
+    }
+
+    public static String getRandomNumberString() {
 	// It will generate 6 digit random Number.
 	// from 0 to 999999
 	Random rnd = new Random();
@@ -35,53 +45,18 @@ public class TicketHelper extends TicketList<Ticket, String> {
 	return String.format("%06d", number);
     }
 
-    /**
-     * Removes a ticket from the catalog
-     * 
-     * @param loanableItemId book id
-     * @return true iff book could be removed
-     */
-    public boolean removeTicket(String ticketID) {
-	Ticket ticketItem = search(ticketID);
-	if (ticketItem == null) {
-	    return false;
+    public static void dateTicket(Date date) {
+	if (ticketLinkedList.isEmpty()) {
+	    System.out.println("Empty List");
 	} else {
-	    return super.remove(ticketItem);
+	    for (Ticket i : ticketLinkedList) {
+		// System.out.println(i.toString());
+		if (i.getShowDate().compareTo(date) == 0) {
+		    System.out.println(i.toString());
+		}
+	    }
 	}
-    }
 
-    /**
-     * Inserts a ticket into the collection
-     * 
-     * @param book the book to be inserted
-     * @return true iff the book could be inserted. Currently always true
-     */
-    public boolean insertTicket(Ticket ticket) {
-	return super.add(ticket);
-    }
-
-    /*
-     * Supports serialization
-     * 
-     * @param output the stream to be written to
-     */
-    private void writeObject(java.io.ObjectOutputStream output) throws IOException {
-	output.defaultWriteObject();
-	output.writeObject(ticketHelper);
-    }
-
-    /*
-     * Supports deserialization
-     * 
-     * @param input the stream to be read from
-     */
-    private void readObject(java.io.ObjectInputStream input) throws IOException, ClassNotFoundException {
-	input.defaultReadObject();
-	if (ticketHelper == null) {
-	    ticketHelper = (TicketHelper) input.readObject();
-	} else {
-	    input.readObject();
-	}
     }
 
 }

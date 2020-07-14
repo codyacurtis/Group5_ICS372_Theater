@@ -1,4 +1,5 @@
 package edu.metrostate.ics372.Group5;
+
 import java.util.Date;
 
 public class TicketFactory {
@@ -23,15 +24,17 @@ public class TicketFactory {
 	return factory;
     }
 
-    public Ticket createTicket(int type, String show, Date date, String customerID, String showID, String showName,
-	    double price) {
+    public Ticket createTicket(int type, String show, Date date, String customerID, String showName, double price) {
+	System.out.println(type);
+
 	switch (type) {
+
 	case Theater.GENERALTICKET:
-	    return new GeneralTicket(date, customerID, showID, showName, price);
+	    return new GeneralTicket(date, customerID, showName, price);
 	case Theater.ADVANCETICKET:
-	    return new AdvanceTicket(date, customerID, showID, showName, price);
+	    return new AdvanceTicket(date, customerID, showName, price);
 	case Theater.STUDENTTICKET:
-	    return new AdvanceTicket(date, customerID, showID, showName, price);
+	    return new StudentTicket(date, customerID, showName, price);
 	default:
 	    return null;
 	}

@@ -11,8 +11,8 @@ public class GeneralTicket extends Ticket implements Serializable, Matchable<Str
     private String ticketType;
     private double price;
 
-    public GeneralTicket(Date date, String CustomerID, String showID, String showName, double price) {
-	super(date, CustomerID, showID, showName);
+    public GeneralTicket(Date date, String CustomerID, String showName, double price) {
+	super(date, CustomerID, showName);
 	this.ticketType = "General";
 	this.price = price;
 	this.ticketID = GENERAL_TICKET_STRING + (TicketHelper.instance()).getRandomNumberString();

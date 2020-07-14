@@ -1,4 +1,5 @@
 package edu.metrostate.ics372.Group5;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,13 +10,11 @@ public abstract class Ticket implements Serializable, Matchable<String> {
     protected Date date;
 
     private String ticketID;
-    private String showID;
     private String showName;
 
-    public Ticket(Date date, String customerID, String showID, String showName) {
+    public Ticket(Date date, String customerID, String showName) {
 	this.customerID = customerID;
 	this.date = date;
-	this.showID = showID;
 	this.showName = showName;
     }
 
@@ -25,10 +24,6 @@ public abstract class Ticket implements Serializable, Matchable<String> {
 
     public String getShowName() {
 	return showName;
-    }
-
-    public String getShowID() {
-	return showID;
     }
 
     public Date getShowDate() {
