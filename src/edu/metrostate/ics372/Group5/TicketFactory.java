@@ -25,10 +25,7 @@ public class TicketFactory {
     }
 
     public Ticket createTicket(int type, String show, Date date, String customerID, String showName, double price) {
-	System.out.println(type);
-
 	switch (type) {
-
 	case Theater.GENERALTICKET:
 	    return new GeneralTicket(date, customerID, showName, price);
 	case Theater.ADVANCETICKET:

@@ -537,9 +537,10 @@ public class UserInterface {
 
     public void buyTicket() {
 	Ticket ticket;
+	int i = 0, count;
+
 	String showName = getToken("Enter Show Name");
 	TheaterShow show = Theater.searchShow(showName);
-
 	if (show == null) {
 	    System.out.println("Show not found");
 	    return;
@@ -554,12 +555,21 @@ public class UserInterface {
 
 	Date date = getDate("Enter show date");
 
+	Date startDate = show.getStart();
+	Date endDate = show.getEnd();
+
+	if (startDate.compareTo(date) > 0 || endDate.compareTo(date) < 0) {
+	    System.out.println("Date not Valid");
+	    return;
+	}
+
 	String clientID = show.getcId();
 	double price = show.getPrice();
 
 	String ticketCount = getToken("How Many Tickets To Buy");
-	int count = Integer.parseInt(ticketCount);
-	for (int i = 0; i < count; i++) {
+	count = Integer.parseInt(ticketCount);
+
+	while (i < count) {
 	    String ticketType = getToken(
 		    "Enter Ticket Type ( 1 for General, 2 for Advance or 3 for Student or (C/c) to cancel");
 	    int type = Integer.parseInt(ticketType);
@@ -581,7 +591,9 @@ public class UserInterface {
 	    }
 	    if (cancel(ticketType))
 		return;
+	    i++;
 	}
+
     }
 
     /**
