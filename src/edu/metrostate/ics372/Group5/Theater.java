@@ -405,25 +405,12 @@ public class Theater implements Serializable {
 
     }
 
-    public Ticket buyTicket(int type, Date date, String customerID, String showName, double price) {
+    public Ticket buyTicket(int type, Date date, String customerID, String showName, double price, String clientID) {
 
 	Ticket ticket = TicketFactory.instance().createTicket(type, showName, date, customerID, showName, price);
 
-	switch (type) {
-	case GENERALTICKET:
-	    price = price;
-	case ADVANCETICKET:
-	    price = price * .7;
-	case STUDENTTICKET:
-	    price = price * .5;
-	default:
-	    break;
-	}
-
-	// ticketHelper.add(ticket);
-
-	// add ticket to customer
-	// add money to client
+	Client client = (Client) PeopleList.search(clientID);
+	client.addBalance(ticket.getPrice());
 
 	if (TicketHelper.insert(ticket)) {
 	    System.out.println("Ticket Added");
@@ -440,6 +427,10 @@ public class Theater implements Serializable {
 	TheaterShow show;
 	show = TheaterShowList.searchShow(ID);
 	return show;
+    }
+
+    public static void dateTickets(Date date) {
+	TicketHelper.dateTicket(date);
     }
 
 }

@@ -1,7 +1,5 @@
 package edu.metrostate.ics372.Group5;
 
-import java.util.Date;
-
 import org.junit.jupiter.api.MethodOrderer.Random;
 
 public class TicketHelper extends TicketList {
@@ -43,20 +41,6 @@ public class TicketHelper extends TicketList {
 
 	// this will convert any number sequence into 6 character.
 	return String.format("%06d", number);
-    }
-
-    public static void dateTicket(Date date) {
-	if (ticketLinkedList.isEmpty()) {
-	    System.out.println("Empty List");
-	} else {
-	    for (Ticket i : ticketLinkedList) {
-		// System.out.println(i.toString());
-		if (i.getShowDate().compareTo(date) == 0) {
-		    System.out.println(i.toString());
-		}
-	    }
-	}
-
     }
 
 }

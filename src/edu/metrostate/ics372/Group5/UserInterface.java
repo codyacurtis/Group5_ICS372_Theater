@@ -199,7 +199,7 @@ public class UserInterface {
 	System.out.println(RETRIEVE + " to retrieve");
 	System.out.println(BUY_TICKET + " to buy ticket");
 	System.out.println(LIST_TICKET + " to list tickets");
-	System.out.println(TICKET_DATE + " to list tickets on a specific date (Still under constuction)");
+	System.out.println(TICKET_DATE + " to list tickets on a specific date");
 	System.out.println(HELP + " for help");
     }
 
@@ -236,7 +236,7 @@ public class UserInterface {
 		return;
 	    }
 	    System.out.println("Added client");
-	    System.out.println("CLient Id: " + result.getId());
+	    System.out.println("Client Id: " + result.getId());
 	} catch (NullPointerException e) {
 	    System.out.println("Could not add client");
 	}
@@ -525,39 +525,63 @@ public class UserInterface {
 	TheaterShowList.listShows();
     }
 
+    public void ticketDate() {
+	Date date = getDate("Enter ticket date");
+	Theater.dateTickets(date);
+
+    }
+
     public void listTickets() {
 	Theater.listTickets();
     }
 
     public void buyTicket() {
-
-	String ticketType = getToken("Enter ticket type ( 1 General, 2 Advance or 3 Student or (C/c) to cancel");
-	int type = Integer.parseInt(ticketType);
-	System.out.println(type);
-	if (cancel(ticketType))
-	    return;
+	Ticket ticket;
 	String showName = getToken("Enter Show Name");
-	String customerID = getToken("Enter Customer ID");
-	// String price = getToken("Enter Price");
-	// double ticketPrice = Double.parseDouble(price);
-	Date date = getDate("Enter show date");
-	// Date endDate = getDate("Enter End date");
-
 	TheaterShow show = Theater.searchShow(showName);
+
 	if (show == null) {
 	    System.out.println("Show not found");
 	    return;
 	}
 
-	// String showName = show.getName();
-	double price = show.getPrice();
-
-	Ticket ticket = theater.buyTicket(type, date, customerID, showName, price);
-	if (ticket == null) {
-	    System.out.println("Ticket Failed");
+	String customerID = getToken("Enter Customer ID");
+	Customer customer = Theater.searchCustomer(customerID);
+	if (customer == null) {
+	    System.out.println("Customer not found");
 	    return;
 	}
 
+	Date date = getDate("Enter show date");
+
+	String clientID = show.getcId();
+	double price = show.getPrice();
+
+	String ticketCount = getToken("How Many Tickets To Buy");
+	int count = Integer.parseInt(ticketCount);
+	for (int i = 0; i < count; i++) {
+	    String ticketType = getToken(
+		    "Enter Ticket Type ( 1 for General, 2 for Advance or 3 for Student or (C/c) to cancel");
+	    int type = Integer.parseInt(ticketType);
+
+	    if (type == 3) {
+		System.out.println("Show Valid Student ID");
+		if (yesOrNo("Is Student ID Valid?")) {
+
+		} else {
+		    System.out.println("can't buy student ticket");
+		    continue;
+		}
+	    }
+
+	    ticket = theater.buyTicket(type, date, customerID, showName, price, clientID);
+	    if (ticket == null) {
+		System.out.println("Ticket Failed");
+		return;
+	    }
+	    if (cancel(ticketType))
+		return;
+	}
     }
 
     /**
@@ -645,6 +669,9 @@ public class UserInterface {
 		break;
 	    case LIST_TICKET:
 		listTickets();
+		break;
+	    case TICKET_DATE:
+		ticketDate();
 		break;
 	    case HELP:
 		help();

@@ -1,6 +1,7 @@
 package edu.metrostate.ics372.Group5;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Ticket implements Serializable, Matchable<String> {
@@ -16,6 +17,10 @@ public abstract class Ticket implements Serializable, Matchable<String> {
 	this.customerID = customerID;
 	this.date = date;
 	this.showName = showName;
+    }
+
+    public double getPrice() {
+	return getPrice();
     }
 
     public String getCustomerID() {
@@ -36,7 +41,9 @@ public abstract class Ticket implements Serializable, Matchable<String> {
 
     @Override
     public String toString() {
-	return "Ticket Show: " + showName + "\nDate of Show: " + date + "\nCustomer ID: " + customerID;
+	SimpleDateFormat DateFor = new SimpleDateFormat("MM/dd/yy");
+	String stringDate = DateFor.format(date);
+	return "Ticket Show: " + showName + "\nDate of Show: " + stringDate + "\nCustomer ID: " + customerID;
     }
 
 }

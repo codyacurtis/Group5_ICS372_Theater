@@ -2,6 +2,7 @@ package edu.metrostate.ics372.Group5;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +32,20 @@ public class TicketList implements Serializable {
 		System.out.println(i.toString());
 	    }
 	}
+    }
+
+    public static void dateTicket(Date date) {
+	if (ticketLinkedList.isEmpty()) {
+	    System.out.println("Empty List");
+	} else {
+	    for (Ticket i : ticketLinkedList) {
+		// System.out.println(i.toString());
+		if (i.getShowDate().compareTo(date) == 0) {
+		    System.out.println(i.toString());
+		}
+	    }
+	}
+
     }
 
     public static void writeObject(java.io.ObjectOutputStream output) {

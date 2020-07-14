@@ -1,12 +1,14 @@
 package edu.metrostate.ics372.Group5;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class StudentTicket extends Ticket implements Serializable, Matchable<String> {
 
     private static final long serialVersionUID = 1L;
     private static final String GENERAL_TICKET_STRING = "G";
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
     private String ticketID;
     private String ticketType;
     private double price;
@@ -36,7 +38,7 @@ public class StudentTicket extends Ticket implements Serializable, Matchable<Str
      */
     @Override
     public String toString() {
-	return super.toString() + "\nprice:$" + price + " Ticket Number: " + ticketID + " Ticket Type: " + ticketType;
+	return super.toString() + "\nprice:$" + df2.format(price) + " Ticket Number: " + ticketID + " Ticket Type: "
+		+ ticketType;
     }
-
 }
