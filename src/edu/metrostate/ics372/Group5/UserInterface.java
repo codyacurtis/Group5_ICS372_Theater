@@ -38,11 +38,11 @@ public class UserInterface {
     private static final int REMOVE_CREDIT_CARD = 8;
     private static final int ADD_SHOW = 9;
     private static final int LIST_ALL_SHOWS = 10;
-    private static final int SAVE = 11;
-    private static final int RETRIEVE = 12;
-    private static final int BUY_TICKET = 13;
-    private static final int LIST_TICKET = 14;
-    private static final int TICKET_DATE = 15;
+    private static final int BUY_TICKET = 11;
+    private static final int LIST_TICKET = 12;
+    private static final int TICKET_DATE = 13;
+    private static final int SAVE = 14;
+    private static final int RETRIEVE = 15;
     private static final int HELP = 16;
 
     /**
@@ -183,7 +183,7 @@ public class UserInterface {
      * 
      */
     public void help() {
-	System.out.println("Enter a number between 0 and 12 as explained below:");
+	System.out.println("Enter a number between 0 and 15 as explained below:");
 	System.out.println(EXIT + "  to Exit\n");
 	System.out.println(ADD_CLIENT + "  to add a client");
 	System.out.println(REMOVE_CLIENT + "  to remove a client");
@@ -195,11 +195,11 @@ public class UserInterface {
 	System.out.println(REMOVE_CREDIT_CARD + "  to remove a credit card");
 	System.out.println(ADD_SHOW + "  to add a show");
 	System.out.println(LIST_ALL_SHOWS + " to list all shows");
+	System.out.println(BUY_TICKET + " to buy tickets");
+	System.out.println(LIST_TICKET + " to list all tickets");
+	System.out.println(TICKET_DATE + " to list tickets on a specific date");
 	System.out.println(SAVE + " to save data");
 	System.out.println(RETRIEVE + " to retrieve");
-	System.out.println(BUY_TICKET + " to buy ticket");
-	System.out.println(LIST_TICKET + " to list tickets");
-	System.out.println(TICKET_DATE + " to list tickets on a specific date");
 	System.out.println(HELP + " for help");
     }
 
@@ -525,39 +525,50 @@ public class UserInterface {
 	TheaterShowList.listShows();
     }
 
+    /**
+     * show all tickets of a date
+     */
     public void ticketDate() {
 	Date date = getDate("Enter ticket date");
 	Theater.dateTickets(date);
-
     }
 
+    /**
+     * list all tickets
+     */
     public void listTickets() {
 	Theater.listTickets();
     }
 
+    /**
+     * buy ticket for a show with 3 options of general, advance or student. Customer
+     * must provide ID number and also a student id card if purchasing a student
+     * ticket.
+     */
     public void buyTicket() {
 	Ticket ticket;
 	int i = 0, count;
 
 	String showName = getToken("Enter Show Name");
-	TheaterShow show = Theater.searchShow(showName);
-	if (show == null) {
+	TheaterShow show = Theater.searchShow(showName); // search for show
+
+	if (show == null) { // if show not found
 	    System.out.println("Show not found");
 	    return;
 	}
 
 	String customerID = getToken("Enter Customer ID");
-	Customer customer = Theater.searchCustomer(customerID);
-	if (customer == null) {
+	Customer customer = Theater.searchCustomer(customerID); // search for customer
+	if (customer == null) { // if customer not found
 	    System.out.println("Customer not found");
 	    return;
 	}
 
 	Date date = getDate("Enter show date");
-
 	Date startDate = show.getStart();
 	Date endDate = show.getEnd();
 
+	// check if show date is valid
 	if (startDate.compareTo(date) > 0 || endDate.compareTo(date) < 0) {
 	    System.out.println("Date not Valid");
 	    return;
@@ -565,13 +576,12 @@ public class UserInterface {
 
 	String clientID = show.getcId();
 	double price = show.getPrice();
-
 	String ticketCount = getToken("How Many Tickets To Buy");
 	count = Integer.parseInt(ticketCount);
 
 	while (i < count) {
 	    String ticketType = getToken(
-		    "Enter Ticket Type ( 1 for General, 2 for Advance or 3 for Student or (C/c) to cancel");
+		    "Enter Ticket Type ( 1 for General, 2 for Advance or 3 for Student or (C/c) to finish purchase");
 	    int type = Integer.parseInt(ticketType);
 
 	    if (type == 3) {
@@ -670,12 +680,6 @@ public class UserInterface {
 	    case LIST_ALL_SHOWS:
 		listShows();
 		break;
-	    case SAVE:
-		save();
-		break;
-	    case RETRIEVE:
-		retrieve();
-		break;
 	    case BUY_TICKET:
 		buyTicket();
 		break;
@@ -684,6 +688,12 @@ public class UserInterface {
 		break;
 	    case TICKET_DATE:
 		ticketDate();
+		break;
+	    case SAVE:
+		save();
+		break;
+	    case RETRIEVE:
+		retrieve();
 		break;
 	    case HELP:
 		help();

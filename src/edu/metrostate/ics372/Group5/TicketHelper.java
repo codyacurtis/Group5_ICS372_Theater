@@ -2,15 +2,29 @@ package edu.metrostate.ics372.Group5;
 
 import org.junit.jupiter.api.MethodOrderer.Random;
 
+/**
+ * This the collection class for the tickets
+ * 
+ * @author Anthony Nguyen
+ *
+ */
 public class TicketHelper extends TicketList {
 
     private static final long serialVersionUID = 1L;
     private static TicketHelper ticketHelper;
 
+    /*
+     * Private constructor for singleton pattern
+     */
     private TicketHelper() {
 	super();
     }
 
+    /**
+     * Supports the singleton pattern
+     * 
+     * @return the singleton object
+     */
     public static TicketHelper instance() {
 	if (ticketHelper != null) {
 	    ticketHelper = new TicketHelper();
@@ -18,10 +32,19 @@ public class TicketHelper extends TicketList {
 	return ticketHelper;
     }
 
+    /**
+     * insert ticket to the collection
+     * 
+     * @param ticket show ticket
+     * @return insert ticket to collection
+     */
     public boolean insertTicket(Ticket ticket) {
 	return super.insert(ticket);
     }
 
+    /**
+     * list all tickets in the collection
+     */
     public static void listTicket() {
 	if (ticketLinkedList.isEmpty()) {
 	    System.out.println("Empty List");
@@ -33,6 +56,11 @@ public class TicketHelper extends TicketList {
 
     }
 
+    /**
+     * generate numbers for ticket ID
+     * 
+     * @return random numbers
+     */
     public static String getRandomNumberString() {
 	// It will generate 6 digit random Number.
 	// from 0 to 999999

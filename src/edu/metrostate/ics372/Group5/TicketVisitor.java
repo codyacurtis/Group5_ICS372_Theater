@@ -1,4 +1,6 @@
 package edu.metrostate.ics372.Group5;
+
+// might delete, we don't need this
 public interface TicketVisitor {
 
     public void visit(Ticket ticket);

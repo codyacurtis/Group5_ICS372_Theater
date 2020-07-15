@@ -405,30 +405,54 @@ public class Theater implements Serializable {
 
     }
 
+    /**
+     * This is a helper method to buy a ticket
+     * 
+     * @param type       ticket type
+     * @param date       show date
+     * @param customerID customer ID
+     * @param showName   name of show
+     * @param price      ticket price
+     * @param clientID   ID of show host
+     * @return ticket object if success
+     */
     public Ticket buyTicket(int type, Date date, String customerID, String showName, double price, String clientID) {
 
-	Ticket ticket = TicketFactory.instance().createTicket(type, showName, date, customerID, showName, price);
-
-	Client client = (Client) PeopleList.search(clientID);
-	client.addBalance(ticket.getPrice());
+	Ticket ticket = TicketFactory.instance().createTicket(type, date, customerID, showName, price);
+	Client client = (Client) PeopleList.search(clientID); // search for client
+	client.addBalance(ticket.getPrice()); // update client balance
 
 	if (TicketHelper.insert(ticket)) {
 	    System.out.println("Ticket Added");
 	    return (ticket);
 	}
-	return null;
+	return null; // unable to insert ticket
     }
 
+    /**
+     * list all tickets
+     */
     public static void listTickets() {
 	TicketHelper.listTicket();
     }
 
-    public static TheaterShow searchShow(String ID) {
+    /**
+     * search for existing show
+     * 
+     * @param showName name of show
+     * @return show if found other wise null
+     */
+    public static TheaterShow searchShow(String showName) {
 	TheaterShow show;
-	show = TheaterShowList.searchShow(ID);
+	show = TheaterShowList.searchShow(showName);
 	return show;
     }
 
+    /**
+     * searches for all tickets on a certain date
+     * 
+     * @param date the date to search with
+     */
     public static void dateTickets(Date date) {
 	TicketHelper.dateTicket(date);
     }

@@ -6,12 +6,25 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * maintains a list of tickets subclasses by general, advance and student
+ * tickets
+ * 
+ * @author Anthony Nguyen
+ *
+ */
+
 public class TicketList implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static TicketList ticketList;
     protected static List<Ticket> ticketLinkedList = new LinkedList<Ticket>();
 
+    /**
+     * Supports the singleton pattern
+     * 
+     * @return the singleton object
+     */
     public static TicketList instance() {
 	if (ticketList != null) {
 	    ticketList = new TicketList();
@@ -19,11 +32,20 @@ public class TicketList implements Serializable {
 	return ticketList;
     }
 
+    /**
+     * insert ticket to collections
+     * 
+     * @param ticket object to insert
+     * @return true if inserted
+     */
     public static boolean insert(Ticket ticket) {
 	ticketLinkedList.add(ticket);
 	return true;
     }
 
+    /**
+     * list all tickets
+     */
     public static void listTicket() {
 	if (ticketLinkedList.isEmpty()) {
 	    System.out.println("Empty List");
@@ -34,6 +56,11 @@ public class TicketList implements Serializable {
 	}
     }
 
+    /**
+     * print tickets of a certain date
+     * 
+     * @param date the date
+     */
     public static void dateTicket(Date date) {
 	if (ticketLinkedList.isEmpty()) {
 	    System.out.println("Empty List");
@@ -48,6 +75,11 @@ public class TicketList implements Serializable {
 
     }
 
+    /**
+     * Save objects to file
+     * 
+     * @param output file to save in
+     */
     public static void writeObject(java.io.ObjectOutputStream output) {
 	try {
 	    output.writeObject(ticketLinkedList);
@@ -57,6 +89,11 @@ public class TicketList implements Serializable {
 	}
     }
 
+    /**
+     * read object from file
+     * 
+     * @param input file to be read from
+     */
     @SuppressWarnings("unchecked")
     public static void readObject(java.io.ObjectInputStream input) {
 	try {
