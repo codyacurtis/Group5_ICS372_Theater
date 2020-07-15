@@ -53,7 +53,6 @@ public class TicketHelper extends TicketList {
 		System.out.println(i.toString());
 	    }
 	}
-
     }
 
     /**
