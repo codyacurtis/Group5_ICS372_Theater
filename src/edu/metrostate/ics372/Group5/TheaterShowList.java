@@ -31,13 +31,13 @@ public class TheaterShowList implements Serializable {
     /*
      * Takes in ID, showName, start and end date ID must be real to add
      */
-    public static boolean addShow(String id, String name, Date startDate, Date endDate) {
+    public static boolean addShow(String id, String name, Date startDate, Date endDate, Double price) {
 	// Asks the user for the name date and a valid
 	// Need to close on exit
 	boolean output = false;
 	if (ClientIdServer.contains(id)) {
 	    if (canAdd(startDate, endDate)) {
-		showArray.add(new TheaterShow(id, name, startDate, endDate));
+		showArray.add(new TheaterShow(id, name, startDate, endDate, price));
 		output = true;
 	    }
 	}
