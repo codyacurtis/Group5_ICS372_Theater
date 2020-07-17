@@ -26,7 +26,7 @@ public class Customer extends People implements Serializable {
 
 	public Customer(String name, String address, String phone) {
 		super(name, address, phone);
-		this.id = (CustomerIdServer.instance()).getId();
+		this.id = (IdServer.instance()).getId();
 	}
 
 	/**
@@ -104,5 +104,9 @@ public class Customer extends People implements Serializable {
 	 */
 	public boolean match(String Number) {
 		return this.id.equals(Number);
+	}
+
+	public static boolean cardHeld(People person, String creditCard) {
+		return false;
 	}
 }

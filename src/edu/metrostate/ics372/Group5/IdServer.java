@@ -11,19 +11,19 @@ public class IdServer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected static IdServer server;
 	protected static ArrayList<String> idList = new ArrayList<String>();
-	
+
 	protected IdServer() {
 		super();
 	}
 
-    public static IdServer instance() {
-	if (server == null) {
-	    return server = new IdServer() ;
-	} else {
-	    return server;
+	public static IdServer instance() {
+		if (server == null) {
+			return server = new IdServer();
+		} else {
+			return server;
+		}
 	}
-    }
-	
+
 	public String getId() {
 		Random rnd = new Random();
 		char[] digits = new char[6];
@@ -39,7 +39,7 @@ public class IdServer implements Serializable {
 		idList.add(output);
 		return new String(digits);
 	}
-	
+
 	public static void retrieve(ObjectInputStream input) {
 		try {
 			server = (IdServer) input.readObject();

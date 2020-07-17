@@ -18,7 +18,7 @@ public class PeopleList implements Serializable {
 	}
 
 	public static People search(String clientId) {
-		if (ClientIdServer.contains(clientId)) {
+		if (IdServer.contains(clientId)) {
 			for (People i : peopleArray) {
 				if (i.getId().compareTo(clientId) == 0) {
 					return i;
@@ -36,22 +36,22 @@ public class PeopleList implements Serializable {
 	public static boolean removeFromList(String clientId) {
 		if (TheaterShowList.canRemove(clientId)) {
 			peopleArray.remove(search(clientId));
-			ClientIdServer.remove(clientId);
+			IdServer.remove(clientId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public static void listPeople() {
+	public static void listPeople(Object type) {
 		if (peopleArray.isEmpty()) {
 			System.out.println("Empty List");
 		} else {
 			for (People i : peopleArray) {
-				System.out.println(i.toString());
+				if (i.getClass().equals(type))
+					System.out.println(i.toString());
 			}
 		}
-
 	}
 
 	public static void writeObject(java.io.ObjectOutputStream output) {
@@ -74,5 +74,28 @@ public class PeopleList implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static boolean personExists(People newPerson) {
+		for (People person : peopleArray) {
+			if (person.getClass().equals(newPerson.getClass())) {
+				if (person.getName().compareToIgnoreCase(newPerson.getName()) == 0
+						&& person.getAddress().compareToIgnoreCase(newPerson.getAddress()) == 0
+						&& person.getPhoneNumber().compareToIgnoreCase(newPerson.getPhoneNumber()) == 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static Customer customerCreditCard(String creditCard) {
+		for (People person : peopleArray) {
+			if (person.getClass().equals(Customer.class)) {
+				if (((Customer) person).checkCreditCardDuplicate(creditCard))
+					return (Customer) person;
+			}
+		}
+		return null;
 	}
 }
