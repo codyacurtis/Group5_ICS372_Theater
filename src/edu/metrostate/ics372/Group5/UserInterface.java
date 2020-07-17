@@ -502,12 +502,13 @@ public class UserInterface {
 	    if (cancel(show))
 		return;
 	    String clientID = getToken("Enter client ID");
+	    String priceString = getToken("Enter show price:");
 	    Date startDate = getDate("Enter Start date");
 	    Date endDate = getDate("Enter End date");
-
+	    double ticketPrice = Double.parseDouble(priceString);
 	    if (startDate.compareTo(endDate) < 0) {
 
-		boolean results = TheaterShowList.addShow(clientID, show, startDate, endDate);
+		boolean results = TheaterShowList.addShow(clientID, show, startDate, endDate, ticketPrice);
 		if (!results) {
 		    System.out.println("Show not added");
 		} else
