@@ -14,7 +14,7 @@ import java.util.Date;
 public class StudentTicket extends Ticket implements Serializable, Matchable<String> {
 
     private static final long serialVersionUID = 1L;
-    private static final String GENERAL_TICKET_STRING = "G";
+    private static final String STUDENT_TICKET_STRING = "S";
     private static DecimalFormat df2 = new DecimalFormat("#.00"); // price format
     private String ticketID; // ticket ID
     private String ticketType; // type of ticket
@@ -27,11 +27,11 @@ public class StudentTicket extends Ticket implements Serializable, Matchable<Str
      * @param showName name of show
      * @param price ticket price
      */
-    public GeneralTicket(Date date, String CustomerID, String showName, double price) {
+    public StudentTicket(Date date, String CustomerID, String showName, double price) {
 	super(date, CustomerID, showName);
-	this.ticketType = "General";
+	this.ticketType = "Student";
 	this.price = price;
-	this.ticketID = GENERAL_TICKET_STRING + (TicketHelper.instance()).getRandomNumberString();
+	this.ticketID = STUDENT_TICKET_STRING + (TicketHelper.instance()).getRandomNumberString();
     }
 
     /**

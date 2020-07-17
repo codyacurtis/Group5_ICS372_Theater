@@ -1,6 +1,6 @@
 package edu.metrostate.ics372.Group5;
 
-import org.junit.jupiter.api.MethodOrderer.Random;
+import java.util.Random;
 
 /**
  * This the collection class for the tickets
